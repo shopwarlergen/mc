@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Resource Hub - Fix Lag & Litematica</title>
+    <!-- Font & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Glowing Background Effects -->
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="site-header">
+            <div class="logo-wrapper">
+                <i class="fa-solid fa-cubes-stacked logo-icon"></i>
+                <h1 class="site-title">MINECRAFT <span class="gradient-text">HUB</span></h1>
+            </div>
+            <p class="site-subtitle">Kho chia sẻ file Fix Lag mượt mà & Bản vẽ Litematica độc quyền</p>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-category="fixlag">
+                <i class="fa-solid fa-bolt tab-icon"></i>
+                <span>Fix Lag</span>
+                <span class="badge" id="count-fixlag">0</span>
+            </button>
+            <button class="tab-btn" data-category="litematica">
+                <i class="fa-solid fa-layer-group tab-icon"></i>
+                <span>Litematica</span>
+                <span class="badge" id="count-litematica">0</span>
+            </button>
+        </nav>
+
+        <!-- Content Grid -->
+        <main class="content-section">
+            <div class="cards-grid" id="cards-container">
+                <!-- Data dynamically inserted here -->
+            </div>
+            
+            <!-- Empty State -->
+            <div class="empty-state hidden" id="empty-state">
+                <i class="fa-regular fa-folder-open empty-icon"></i>
+                <p>Chưa có file nào trong mục này!</p>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <p>© 2026 Minecraft Resource Hub. Hosted on <span class="highlight">Vercel</span></p>
+        </footer>
+    </div>
+
+    <!-- Modular JS Files -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
