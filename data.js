@@ -15,17 +15,17 @@ const resourceData = [
     {
         id: "fixlag-01",
         category: "fixlag",
-        title: "Bản Fix Lag Sodium + Lithium 1.20.1",
+        title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
-        version: "1.20.1",
+        version: "1.21",
         size: "15 MB",
-        image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&auto=format&fit=crop", // Link ảnh ví dụ (có thể để "" nếu không có)
+        image: "", // Link ảnh ví dụ (có thể để "" nếu không có)
         link: "https://link-rut-gon-cua-ban.com/fixlag1" // Thay bằng link rút gọn của bạn
     },
     {
         id: "fixlag-02",
         category: "fixlag",
-        title: "File Option Tắt Hiệu Ứng Nặng (No Lag)",
+        title: "sodium",
         description: "Tắt toàn bộ hạt hạt bong bóng, khói, hoạt ảnh nước chảy giúp giảm tối đa RAM tiêu thụ.",
         version: "All Version",
         size: "2 MB",
