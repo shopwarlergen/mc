@@ -19,7 +19,7 @@ const resourceData = [
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
         version: "26.1.2",
         size: "",
-        image: "", // Link ảnh ví dụ (có thể để "" nếu không có)
+        image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png", // Link ảnh ví dụ (có thể để "" nếu không có)
         link: "https://link4m.org/eIbc56" // Thay bằng link rút gọn của bạn
     },
     {
@@ -29,20 +29,109 @@ const resourceData = [
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
         version: "26.1",
         size: "",
-        image: "", // Không có ảnh -> Hệ thống tự động tạo icon
+        image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png", // Không có ảnh -> Hệ thống tự động tạo icon
         link: "https://link4m.org/HmJRHJF"
     },
     {
         id: "fixlag-03",
-        category: "fixlag",
-        title: "Pack Config Tối Ưu RAM 4GB",
+        category: "sodium",
+        title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
-        version: "1.16.5 - 1.20.4",
+        version: "1.21.11",
         size: "",
-        image: "",
-        link: "https://link-rut-gon-cua-ban.com/config-4gb"
+        image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
+        link: "https://link4m.org/UJytmJ"
     },
-
+   {
+        id: "fixlag-03",
+        category: "sodium",
+        title: "sodium",
+        description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
+        version: "1.21.10",
+        size: "",
+        image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
+        link: "https://link4m.org/l2ccnA4r"
+    },
+    {
+        id: "fixlag-03",
+        category: "sodium",
+        title: "sodium",
+        description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
+        version: "1.21.9",
+        size: "",
+        image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
+        link: "https://link4m.net/wU5TZ"
+    },
+      {
+        id: "fixlag-03",
+        category: "sodium",
+        title: "sodium",
+        description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
+        version: "1.21.8",
+        size: "",
+        image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
+        link: "https://link4m.net/8K5Yei"
+    },
+    {
+        id: "fixlag-03",
+        category: "sodium",
+        title: "sodium",
+        description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
+        version: "1.21.7",
+        size: "",
+        image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
+        link: "https://link4m.net/pLmQicmy"
+    },
+   {
+        id: "fixlag-03",
+        category: "sodium",
+        title: "sodium",
+        description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
+        version: "1.21.6",
+        size: "",
+        image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
+        link: "https://link4m.org/zF8Tpc90"
+    },
+      {
+        id: "fixlag-03",
+        category: "sodium",
+        title: "sodium",
+        description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
+        version: "1.21.5",
+        size: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
+        image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
+        link: "https://link4m.org/XuKaHs"
+    },
+        {
+        id: "fixlag-03",
+        category: "sodium",
+        title: "sodium",
+        description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
+        version: "1.21.4",
+        size: "",
+        image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
+        link: "https://link4m.net/vwh3J"
+    },
+        {
+        id: "fixlag-03",
+        category: "sodium",
+        title: "sodium",
+        description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
+        version: "1.21.1",
+        size: "",
+        image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
+        link: "https://link4m.net/CI0tKPH"
+    },
+        {
+        id: "fixlag-03",
+        category: "sodium",
+        title: "sodium",
+        description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
+        version: "1.21",
+        size: "",
+        image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
+        link: "https://link4m.org/WeshKI"
+    },
     // ==========================================
     // MỤC 2: LITEMATICA (File Schematic Công Trình)
     // ==========================================
