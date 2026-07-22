@@ -43,7 +43,7 @@ const resourceData = [
         link: "https://link4m.org/UJytmJ"
     },
    {
-        id: "fixlag-03",
+        id: "fixlag-04",
         category: "sodium",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
@@ -53,7 +53,7 @@ const resourceData = [
         link: "https://link4m.org/l2ccnA4r"
     },
     {
-        id: "fixlag-03",
+        id: "fixlag-05",
         category: "sodium",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
@@ -63,7 +63,7 @@ const resourceData = [
         link: "https://link4m.net/wU5TZ"
     },
       {
-        id: "fixlag-03",
+        id: "fixlag-06",
         category: "sodium",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
@@ -73,7 +73,7 @@ const resourceData = [
         link: "https://link4m.net/8K5Yei"
     },
     {
-        id: "fixlag-03",
+        id: "fixlag-07",
         category: "sodium",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
@@ -83,7 +83,7 @@ const resourceData = [
         link: "https://link4m.net/pLmQicmy"
     },
    {
-        id: "fixlag-03",
+        id: "fixlag-08",
         category: "sodium",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
@@ -93,7 +93,7 @@ const resourceData = [
         link: "https://link4m.org/zF8Tpc90"
     },
       {
-        id: "fixlag-03",
+        id: "fixlag-09",
         category: "sodium",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
@@ -103,7 +103,7 @@ const resourceData = [
         link: "https://link4m.org/XuKaHs"
     },
         {
-        id: "fixlag-03",
+        id: "fixlag-10",
         category: "sodium",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
@@ -113,7 +113,7 @@ const resourceData = [
         link: "https://link4m.net/vwh3J"
     },
         {
-        id: "fixlag-03",
+        id: "fixlag-11",
         category: "sodium",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
@@ -123,7 +123,7 @@ const resourceData = [
         link: "https://link4m.net/CI0tKPH"
     },
         {
-        id: "fixlag-03",
+        id: "fixlag-12",
         category: "sodium",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
