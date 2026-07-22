@@ -138,11 +138,11 @@ const resourceData = [
     {
         id: "lite-01",
         category: "litematica",
-        title: "Trang Trại Sắt (Iron Farm) 1000/h",
-        description: "Bản vẽ Litematica trang trại sắt siêu nhỏ gọn, dễ xây cho sinh tồn giai đoạn đầu.",
-        version: "1.20+",
-        size: "120 KB",
-        image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=600&auto=format&fit=crop", // Link ảnh mẫu
+        title: "farm cobblestone",
+        description: "DonutSMP Cobblestone Farm ( 1 triệu cob/h), chỉ dùng được cho donut",
+        version: "1.21+",
+        size: "17.22 KB",
+        image: "https://cdn.discordapp.com/attachments/1511309569727533136/1517086886349242388/image.png?ex=6a61d3c3&is=6a608243&hm=ef98c60a968f4240f5a1ee6d0c9ec087114c7645674fbf498e7181eaa3e7bdcd&", // Link ảnh mẫu
         link: "https://link-rut-gon-cua-ban.com/iron-farm"
     },
     {
