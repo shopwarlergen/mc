@@ -17,28 +17,28 @@ const resourceData = [
         category: "fixlag",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
-        version: "1.21",
-        size: "15 MB",
+        version: "26.1.2",
+        size: "",
         image: "", // Link ảnh ví dụ (có thể để "" nếu không có)
-        link: "https://link-rut-gon-cua-ban.com/fixlag1" // Thay bằng link rút gọn của bạn
+        link: "https://link4m.org/eIbc56" // Thay bằng link rút gọn của bạn
     },
     {
         id: "fixlag-02",
         category: "fixlag",
         title: "sodium",
-        description: "Tắt toàn bộ hạt hạt bong bóng, khói, hoạt ảnh nước chảy giúp giảm tối đa RAM tiêu thụ.",
-        version: "All Version",
-        size: "2 MB",
+        description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
+        version: "26.1",
+        size: "",
         image: "", // Không có ảnh -> Hệ thống tự động tạo icon
-        link: "https://link-rut-gon-cua-ban.com/nolag-option"
+        link: "https://link4m.org/HmJRHJF"
     },
     {
         id: "fixlag-03",
         category: "fixlag",
         title: "Pack Config Tối Ưu RAM 4GB",
-        description: "Bộ cài đặt chuẩn dành riêng cho các bạn chơi Minecraft trên PC/Laptop RAM 4GB không sợ dis game.",
+        description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
         version: "1.16.5 - 1.20.4",
-        size: "8 MB",
+        size: "",
         image: "",
         link: "https://link-rut-gon-cua-ban.com/config-4gb"
     },
