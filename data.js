@@ -34,7 +34,7 @@ const resourceData = [
     },
     {
         id: "fixlag-03",
-        category: "sodium",
+        category: "fixlag",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
         version: "1.21.11",
@@ -44,7 +44,7 @@ const resourceData = [
     },
    {
         id: "fixlag-04",
-        category: "sodium",
+        category: "fixlag",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
         version: "1.21.10",
@@ -54,7 +54,7 @@ const resourceData = [
     },
     {
         id: "fixlag-05",
-        category: "sodium",
+        category: "fixlag",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
         version: "1.21.9",
@@ -64,7 +64,7 @@ const resourceData = [
     },
       {
         id: "fixlag-06",
-        category: "sodium",
+        category: "fixlag",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
         version: "1.21.8",
@@ -74,7 +74,7 @@ const resourceData = [
     },
     {
         id: "fixlag-07",
-        category: "sodium",
+        category: "fixlag",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
         version: "1.21.7",
@@ -84,7 +84,7 @@ const resourceData = [
     },
    {
         id: "fixlag-08",
-        category: "sodium",
+        category: "fixlag",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
         version: "1.21.6",
@@ -94,7 +94,7 @@ const resourceData = [
     },
       {
         id: "fixlag-09",
-        category: "sodium",
+        category: "fixlag",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
         version: "1.21.5",
@@ -104,7 +104,7 @@ const resourceData = [
     },
         {
         id: "fixlag-10",
-        category: "sodium",
+        category: "fixlag",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
         version: "1.21.4",
@@ -114,7 +114,7 @@ const resourceData = [
     },
         {
         id: "fixlag-11",
-        category: "sodium",
+        category: "fixlag",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
         version: "1.21.1",
@@ -124,7 +124,7 @@ const resourceData = [
     },
         {
         id: "fixlag-12",
-        category: "sodium",
+        category: "fixlag",
         title: "sodium",
         description: "Tối ưu hóa FPS cực đỉnh cho máy cấu hình yếu. Tăng từ 30 FPS lên 120+ FPS mượt mà.",
         version: "1.21",
