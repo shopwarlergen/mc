@@ -143,26 +143,26 @@ const resourceData = [
         version: "1.21+",
         size: "17.22 KB",
         image: "https://cdn.discordapp.com/attachments/1511309569727533136/1517086886349242388/image.png?ex=6a61d3c3&is=6a608243&hm=ef98c60a968f4240f5a1ee6d0c9ec087114c7645674fbf498e7181eaa3e7bdcd&", // Link ảnh mẫu
-        link: "https://link-rut-gon-cua-ban.com/iron-farm"
+        link: "https://link4m.net/gDGkjV"
     },
     {
         id: "lite-02",
         category: "litematica",
-        title: "Lâu Đài Đỏ Kiểu Hiện Đại (Modern Castle)",
-        description: "Bản vẽ công trình lâu đài chi tiết đầy đủ nội thất, phù hợp làm căn cứ chính.",
-        version: "1.19+",
-        size: "1.5 MB",
-        image: "", // Không có ảnh -> Tự động hiện icon Litematica đẹp
-        link: "https://link-rut-gon-cua-ban.com/modern-castle"
+        title: "farm cobblestone",
+        description: "120k/1h",
+        version: "1.21+",
+        size: "2.14 KB",
+        image: "https://media.discordapp.net/attachments/1521492431000830034/1529683961641566382/2026-07-23_09.54.47.png?ex=6a62d4b4&is=6a618334&hm=b73f82d8f6e7fa7d8fc47db228548fb07c705b71edc419021ea7be5bd75a374c&=&format=webp&quality=lossless&width=1384&height=779",
+        link: "https://link4m.net/4cFPnmMw"
     },
     {
         id: "lite-03",
         category: "litematica",
-        title: "Trang Trại Vàng & XP Siêu Tốc (Gold Farm)",
-        description: "Bản vẽ trang trại vàng trên nóc Nether, cày XP từ level 0 lên 100 chỉ trong 5 phút.",
-        version: "1.20.1",
-        size: "450 KB",
-        image: "",
-        link: "https://link-rut-gon-cua-ban.com/gold-farm"
+        title: "wither cobblestone farm",
+        description: "50k/1h",
+        version: "1.21+",
+        size: "2.96 KB",
+        image: "https://media.discordapp.net/attachments/1521492431000830034/1529685021416231033/2026-07-23_09.48.04.png?ex=6a62d5b1&is=6a618431&hm=abfe8c4e1d1bcf41532e56a13b48851825fa41b8c52485ced3b9a28c4b9a1b69&=&format=webp&quality=lossless&width=550&height=309",
+        link: "https://link4m.org/M0b9Wxd"
     }
 ];
