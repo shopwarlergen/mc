@@ -169,9 +169,7 @@ const resourceData = [
         id: "lite-04",
         category: "litematica",
         title: "EtZ Cobblestone v3",
-        description: "2.1m Cobblestone Per Hour
-                      9230 TNT Per Hour 
-                      225 Cobblestone Per TNT",
+        description: "2.1m Cobblestone Per Hour  9230 TNT Per Hour  225 Cobblestone Per TNT",
         version: "1.21+",
         size: "2.96 KB",
         image: "https://media.discordapp.net/attachments/1492345498240286761/1492345499251118180/area_render_3_.png?ex=6a641a8d&is=6a62c90d&hm=f97fb333cf1b5ef283ba2ca3be83b376679fde592aa441316a703a0be804d1d2&=&format=webp&quality=lossless&width=805&height=805",
