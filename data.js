@@ -174,5 +174,35 @@ const resourceData = [
         size: "2.96 KB",
         image: "https://media.discordapp.net/attachments/1492345498240286761/1492345499251118180/area_render_3_.png?ex=6a641a8d&is=6a62c90d&hm=f97fb333cf1b5ef283ba2ca3be83b376679fde592aa441316a703a0be804d1d2&=&format=webp&quality=lossless&width=805&height=805",
         link: "https://link4m.org/zHTectd5"
-    }
+    },
+    {
+        id: "lite-05",
+        category: "litematica",
+        title: "EtZ Cobblestone v2",
+        description: "4.4m Cobblestone Per Hour  28k TNT Per Hour  150 Cobblestone Per TNT",
+        version: "1.21+",
+        size: "2.96 KB",
+        image: "https://media.discordapp.net/attachments/1483998068511735909/1483998068717391872/image.png?ex=6a640ee6&is=6a62bd66&hm=23958670d0b964b1fae3fbe052b8d652a20229eaeefe36180277686f4fc635b4&=&format=webp&quality=lossless&width=805&height=805",
+        link: "https://link4m.org/GJv2Asx"
+    },
+    {
+        id: "lite-06",
+        category: "litematica",
+        title: "EtZ Cobblestone v2",
+        description: "4.4m Cobblestone Per Hour  28k TNT Per Hour  150 Cobblestone Per TNT",
+        version: "1.21+",
+        size: "2.96 KB",
+        image: "https://media.discordapp.net/attachments/1483998068511735909/1483998068717391872/image.png?ex=6a640ee6&is=6a62bd66&hm=23958670d0b964b1fae3fbe052b8d652a20229eaeefe36180277686f4fc635b4&=&format=webp&quality=lossless&width=805&height=805",
+        link: "https://link4m.org/GJv2Asx"
+    },
+       {
+        id: "lite-07",
+        category: "litematica",
+        title: "Beginner Cobblestone Farm Full Base",
+        description: "300K Cobblestone Per Hour   2400 TNT Needed Per Hour  125 Cobblestone Per TNT",
+        version: "1.21+",
+        size: "2.96 KB",
+        image: "https://media.discordapp.net/attachments/1497889317274521650/1497889317962518599/image.png?ex=6a647f22&is=6a632da2&hm=70bf87dc07190253168e899e973e723c512713aa38081870cfbb91774245ebc1&=&format=webp&quality=lossless&width=688&height=386",
+        link: "https://link4m.net/O1l4boDW"
+    },
 ];
