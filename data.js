@@ -152,7 +152,7 @@ const resourceData = [
         description: "120k/1h",
         version: "1.21+",
         size: "2.14 KB",
-        image: "https://media.discordapp.net/attachments/1521492431000830034/1529683961641566382/2026-07-23_09.54.47.png?ex=6a62d4b4&is=6a618334&hm=b73f82d8f6e7fa7d8fc47db228548fb07c705b71edc419021ea7be5bd75a374c&=&format=webp&quality=lossless&width=1384&height=779",
+        image: "https://cdn.discordapp.com/attachments/1521492431000830034/1529683961641566382/2026-07-23_09.54.47.png?ex=6a642634&is=6a62d4b4&hm=bdd6703b1f05b4c818591062ab51efa1881f0ef0b39cd9bf476f755967a9db56&",
         link: "https://link4m.net/4cFPnmMw"
     },
     {
@@ -162,7 +162,7 @@ const resourceData = [
         description: "50k/1h",
         version: "1.21+",
         size: "2.96 KB",
-        image: "https://media.discordapp.net/attachments/1521492431000830034/1529685021416231033/2026-07-23_09.48.04.png?ex=6a62d5b1&is=6a618431&hm=abfe8c4e1d1bcf41532e56a13b48851825fa41b8c52485ced3b9a28c4b9a1b69&=&format=webp&quality=lossless&width=550&height=309",
+        image: "https://cdn.discordapp.com/attachments/1521492431000830034/1529685021416231033/2026-07-23_09.48.04.png?ex=6a642731&is=6a62d5b1&hm=fcd498c0a7c554fb00ab6512f7bf244bb9763e5bbfaf6ddd5d764a6a8d271171&",
         link: "https://link4m.org/M0b9Wxd"
     },
     {
