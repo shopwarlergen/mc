@@ -185,18 +185,8 @@ const resourceData = [
         image: "https://media.discordapp.net/attachments/1483998068511735909/1483998068717391872/image.png?ex=6a640ee6&is=6a62bd66&hm=23958670d0b964b1fae3fbe052b8d652a20229eaeefe36180277686f4fc635b4&=&format=webp&quality=lossless&width=805&height=805",
         link: "https://link4m.org/GJv2Asx"
     },
-    {
-        id: "lite-06",
-        category: "litematica",
-        title: "EtZ Cobblestone v2",
-        description: "4.4m Cobblestone Per Hour  28k TNT Per Hour  150 Cobblestone Per TNT",
-        version: "1.21+",
-        size: "2.96 KB",
-        image: "https://media.discordapp.net/attachments/1483998068511735909/1483998068717391872/image.png?ex=6a640ee6&is=6a62bd66&hm=23958670d0b964b1fae3fbe052b8d652a20229eaeefe36180277686f4fc635b4&=&format=webp&quality=lossless&width=805&height=805",
-        link: "https://link4m.org/GJv2Asx"
-    },
        {
-        id: "lite-07",
+        id: "lite-06",
         category: "litematica",
         title: "Beginner Cobblestone Farm Full Base",
         description: "300K Cobblestone Per Hour   2400 TNT Needed Per Hour  125 Cobblestone Per TNT",
