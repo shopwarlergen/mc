@@ -142,7 +142,7 @@ const resourceData = [
         description: "DonutSMP Cobblestone Farm ( 1 triệu cob/h), chỉ dùng được cho donut",
         version: "1.21+",
         size: "17.22 KB",
-        image: "https://cdn.discordapp.com/attachments/1511309569727533136/1517086886349242388/image.png?ex=6a61d3c3&is=6a608243&hm=ef98c60a968f4240f5a1ee6d0c9ec087114c7645674fbf498e7181eaa3e7bdcd&", // Link ảnh mẫu
+        image: "https://i.postimg.cc/44t7ZKfQ/image.png", // Link ảnh mẫu
         link: "https://link4m.net/gDGkjV"
     },
     {
@@ -152,7 +152,7 @@ const resourceData = [
         description: "120k/1h",
         version: "1.21+",
         size: "2.14 KB",
-        image: "https://cdn.discordapp.com/attachments/1521492431000830034/1529683961641566382/2026-07-23_09.54.47.png?ex=6a642634&is=6a62d4b4&hm=bdd6703b1f05b4c818591062ab51efa1881f0ef0b39cd9bf476f755967a9db56&",
+        image: "https://i.postimg.cc/zvjqvY2t/2026-07-23-09-54-47.png",
         link: "https://link4m.net/4cFPnmMw"
     },
     {
@@ -162,7 +162,7 @@ const resourceData = [
         description: "50k/1h",
         version: "1.21+",
         size: "2.96 KB",
-        image: "https://cdn.discordapp.com/attachments/1521492431000830034/1529685021416231033/2026-07-23_09.48.04.png?ex=6a642731&is=6a62d5b1&hm=fcd498c0a7c554fb00ab6512f7bf244bb9763e5bbfaf6ddd5d764a6a8d271171&",
+        image: "https://i.postimg.cc/Wp6NX0pG/2026-07-23-09-48-04.png",
         link: "https://link4m.org/M0b9Wxd"
     },
     {
@@ -172,7 +172,7 @@ const resourceData = [
         description: "2.1m Cobblestone Per Hour  9230 TNT Per Hour  225 Cobblestone Per TNT",
         version: "1.21+",
         size: "2.96 KB",
-        image: "https://media.discordapp.net/attachments/1492345498240286761/1492345499251118180/area_render_3_.png?ex=6a641a8d&is=6a62c90d&hm=f97fb333cf1b5ef283ba2ca3be83b376679fde592aa441316a703a0be804d1d2&=&format=webp&quality=lossless&width=805&height=805",
+        image: "https://i.postimg.cc/yxP7xCpT/area-render-3.png",
         link: "https://link4m.org/zHTectd5"
     },
     {
@@ -182,7 +182,7 @@ const resourceData = [
         description: "4.4m Cobblestone Per Hour  28k TNT Per Hour  150 Cobblestone Per TNT",
         version: "1.21+",
         size: "2.96 KB",
-        image: "https://media.discordapp.net/attachments/1483998068511735909/1483998068717391872/image.png?ex=6a640ee6&is=6a62bd66&hm=23958670d0b964b1fae3fbe052b8d652a20229eaeefe36180277686f4fc635b4&=&format=webp&quality=lossless&width=805&height=805",
+        image: "https://i.postimg.cc/7hDxqZ99/cobblestone-v2.png",
         link: "https://link4m.org/GJv2Asx"
     },
        {
@@ -192,7 +192,17 @@ const resourceData = [
         description: "300K Cobblestone Per Hour   2400 TNT Needed Per Hour  125 Cobblestone Per TNT",
         version: "1.21+",
         size: "2.96 KB",
-        image: "https://media.discordapp.net/attachments/1497889317274521650/1497889317962518599/image.png?ex=6a647f22&is=6a632da2&hm=70bf87dc07190253168e899e973e723c512713aa38081870cfbb91774245ebc1&=&format=webp&quality=lossless&width=688&height=386",
+        image: "https://i.postimg.cc/X7sy1RNt/image.png",
         link: "https://link4m.net/O1l4boDW"
+    },
+          {
+        id: "lite-07",
+        category: "litematica",
+        title: "EtZ Cobblestone v1",
+        description: "1.1m Cobblestone Per Hour7k TNT Per Hour150 Cobblestone Per TNT",
+        version: "1.21+",
+        size: "2.96 KB",
+        image: "https://i.postimg.cc/nrZHnh2K/cobblestone-v1.png",
+        link: "https://link4m.net/91FTg83"
     },
 ];
