@@ -205,4 +205,61 @@ const resourceData = [
         image: "https://i.postimg.cc/nrZHnh2K/cobblestone-v1.png",
         link: "https://link4m.net/91FTg83"
     },
+   {
+    id: "lite-08",
+    category: "litematica",
+    title: "EtZ Kelp T1",
+    description: "",
+    version: "1.21+",
+    size: "2.96 kb",
+    image: "images/fixlag1.jpg", // Tên thư mục/Tên ảnh của bạn
+    link: "https://link-rut-gon-cua-ban.com/xyz123"
+},
+      {
+    id: "lite-09",
+    category: "litematica",
+    title: "",
+    description: "",
+    version: "1.21+",
+    size: "2.96 kb",
+    image: "images/fixlag1.jpg", // Tên thư mục/Tên ảnh của bạn
+    link: "https://link-rut-gon-cua-ban.com/xyz123"
+},
+         {
+    id: "lite-10",
+    category: "litematica",
+    title: "",
+    description: "",
+    version: "1.21+",
+    size: "2.96 kb",
+    image: "images/fixlag1.jpg", // Tên thư mục/Tên ảnh của bạn
+    link: "https://link-rut-gon-cua-ban.com/xyz123"
+},
+// === THÔNG TIN MÁY FARM CHI TIẾT (MỚI BỔ SUNG) ===
+    farmInfo: {
+        yield: "1,200 Sắt / giờ",          // Năng suất
+        dimensions: "12 x 12 x 15 Blocks",  // Kích thước
+        difficulty: "Dễ xây (Early Game)", // Độ khó
+        materials: "3 Dân làng, 1 Zombie, Khối Đá, Bảng", // Vật liệu quan trọng
+        notes: "Hoạt động 24/7, không cần AFK liên tục" // Ghi chú thêm
+    }
+},
+{
+    id: "lite-02",
+    category: "litematica",
+    title: "Trang Trại Vàng & XP Trên Nóc Nether",
+    description: "Farm Vàng và cày level XP từ 0 lên 100 chỉ trong vài phút.",
+    version: "1.19+",
+    size: "450 KB",
+    image: "", 
+    link: "https://link-rut-gon-cua-ban.com/gold-farm",
+    
+    farmInfo: {
+        yield: "180 Khối Vàng / giờ + XP Vô hạn",
+        dimensions: "35 x 35 x 40 Blocks",
+        difficulty: "Trung bình (Cần lên nóc Nether)",
+        materials: "Đá lửa, Thủy tinh, Magma Block, Turtle Egg",
+        notes: "Cần dùng kiếm Kéo Rộng (Sweeping Edge III)"
+    }
+},
 ];
