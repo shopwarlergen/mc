@@ -1,310 +1,597 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Resource Hub - Quản Trị Hệ Thống</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- Ambient Background Lights -->
-    <div class="bg-glow glow-1"></div>
-    <div class="bg-glow glow-2"></div>
-    <div class="bg-glow glow-3"></div>
+/* =========================================================
+   ADMIN.JS - Xử lý Quản Trị Hệ Thống & Tự Động Hóa
+   Minecraft Resource Hub
+   ========================================================= */
 
-    <!-- MÀN HÌNH KHÓA BẢO MẬT (ADMIN GATEWAY) -->
-    <section class="admin-lock-screen" id="admin-lock-screen">
-        <div class="lock-box">
-            <i class="fa-solid fa-shield-halved lock-icon"></i>
-            <h1 class="lock-title">ADMIN GATEWAY</h1>
-            <p class="lock-desc">Khu vực quản trị dành riêng cho chủ sở hữu. Vui lòng nhập mã bảo mật để tiếp tục.</p>
-            
-            <form id="lock-form">
-                <div class="pin-input-group">
-                    <input type="password" id="admin-passcode" class="pin-input" placeholder="Nhập mã bảo mật..." autocomplete="off" autofocus>
-                </div>
-                <button type="submit" class="btn-unlock">
-                    <i class="fa-solid fa-key"></i> Mở Khóa Quản Trị
-                </button>
-            </form>
-        </div>
-    </section>
+document.addEventListener('DOMContentLoaded', () => {
+    const SECRET_PASSCODE = 'kietgottop2';
 
-    <!-- BẢNG ĐIỀU KHIỂN QUẢN TRỊ (ADMIN DASHBOARD) -->
-    <div class="container hidden" id="admin-dashboard">
-        <!-- Top Admin Navbar -->
-        <header class="admin-navbar">
-            <div class="logo-wrapper" style="margin-bottom: 0;">
-                <i class="fa-solid fa-screwdriver-wrench" style="font-size: 1.8rem; color: var(--secondary);"></i>
-                <h2 style="font-size: 1.4rem; font-weight: 800;">MC <span class="gradient-text">ADMIN PORTAL</span></h2>
-            </div>
+    // Elements
+    const lockScreen = document.getElementById('admin-lock-screen');
+    const adminDashboard = document.getElementById('admin-dashboard');
+    const lockForm = document.getElementById('lock-form');
+    const adminPasscode = document.getElementById('admin-passcode');
+    const btnAdminLogout = document.getElementById('btn-admin-logout');
 
-            <!-- Admin Navigation Tabs -->
-            <div class="admin-nav-tabs">
-                <button type="button" class="admin-nav-btn active" data-tab="tab-manage">
-                    <i class="fa-solid fa-list-check"></i> Quản Lý Tài Nguyên
-                </button>
-                <button type="button" class="admin-nav-btn" data-tab="tab-preview">
-                    <i class="fa-solid fa-eye"></i> Xem Trước Trang Khách
-                </button>
-                <button type="button" class="admin-nav-btn" data-tab="tab-github">
-                    <i class="fa-brands fa-github"></i> Tự Động Đẩy Lên Web
-                </button>
-            </div>
+    // Admin Navigation
+    const adminNavBtns = document.querySelectorAll('.admin-nav-btn[data-tab]');
+    const adminTabContents = document.querySelectorAll('.admin-tab-content');
 
-            <button type="button" class="btn-admin-logout" id="btn-admin-logout">
-                <i class="fa-solid fa-arrow-right-from-bracket"></i> Đăng Xuất
-            </button>
-        </header>
+    // Stats Elements
+    const admTotal = document.getElementById('adm-total');
+    const admFixlag = document.getElementById('adm-fixlag');
+    const admLitematica = document.getElementById('adm-litematica');
 
-        <!-- ==========================================
-             TAB 1: QUẢN LÝ & THÊM TÀI NGUYÊN
-             ========================================== -->
-        <section class="admin-tab-content" id="tab-manage">
-            <!-- Stats Summary & Quick Action Bar -->
-            <div class="filter-control-panel" style="margin-bottom: 24px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-                    <div class="stats-banner" style="justify-content: flex-start;">
-                        <div class="stat-pill">
-                            <i class="fa-solid fa-box-archive"></i>
-                            <span>Tổng số: <strong id="adm-total">0</strong></span>
-                        </div>
-                        <div class="stat-pill">
-                            <i class="fa-solid fa-bolt"></i>
-                            <span>Fix Lag: <strong id="adm-fixlag">0</strong></span>
-                        </div>
-                        <div class="stat-pill">
-                            <i class="fa-solid fa-layer-group"></i>
-                            <span>Litematica: <strong id="adm-litematica">0</strong></span>
-                        </div>
-                    </div>
+    // Table & Search
+    const adminItemsTbody = document.getElementById('admin-items-tbody');
+    const adminSearchInput = document.getElementById('admin-search-input');
 
-                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                        <button type="button" class="btn-download" id="btn-open-add-modal" style="width: auto; padding: 10px 18px;">
-                            <i class="fa-solid fa-plus"></i> Thêm Tài Nguyên Mới
+    // Action Buttons
+    const btnOpenAddModal = document.getElementById('btn-open-add-modal');
+    const btnExportDatajs = document.getElementById('btn-export-datajs');
+    const btnCopyDatajs = document.getElementById('btn-copy-datajs');
+
+    // Resource Modal Elements
+    const resourceModal = document.getElementById('resource-modal');
+    const btnCloseResourceModal = document.getElementById('btn-close-resource-modal');
+    const btnCancelForm = document.getElementById('btn-cancel-form');
+    const resourceForm = document.getElementById('resource-form');
+    const formModalTitle = document.getElementById('form-modal-title');
+    const itemIdInput = document.getElementById('item-id');
+
+    // 1-Click Category Selector Elements
+    const btnCatFixlag = document.getElementById('btn-cat-fixlag');
+    const btnCatLitematica = document.getElementById('btn-cat-litematica');
+    const formGroupVersion = document.getElementById('form-group-version');
+    const farmInfoSection = document.getElementById('farm-info-section');
+    let selectedCategory = 'fixlag';
+
+    // Form Field Elements
+    const itemTitle = document.getElementById('item-title');
+    const itemVersion = document.getElementById('item-version');
+    const itemSize = document.getElementById('item-size');
+    const itemImage = document.getElementById('item-image');
+    const itemLink = document.getElementById('item-link');
+    const itemDesc = document.getElementById('item-desc');
+    const farmProfit = document.getElementById('farm-profit');
+    const farmCost = document.getElementById('farm-cost');
+    const farmDimensions = document.getElementById('farm-dimensions');
+    const farmNotes = document.getElementById('farm-notes');
+
+    // Preview Frame Elements
+    const previewIframe = document.getElementById('preview-iframe');
+    const previewFrameWrapper = document.getElementById('preview-frame-wrapper');
+    const btnViewDesktop = document.getElementById('btn-view-desktop');
+    const btnViewMobile = document.getElementById('btn-view-mobile');
+    const btnRefreshPreview = document.getElementById('btn-refresh-preview');
+
+    // GitHub Settings Elements
+    const ghRepo = document.getElementById('gh-repo');
+    const ghBranch = document.getElementById('gh-branch');
+    const ghToken = document.getElementById('gh-token');
+    const btnToggleTokenVisibility = document.getElementById('btn-toggle-token-visibility');
+    const btnSaveGhSettings = document.getElementById('btn-save-gh-settings');
+    const btnPushNow = document.getElementById('btn-push-now');
+
+    const toastContainer = document.getElementById('toast-container');
+
+    // =========================================================
+    // 1. HỆ THỐNG XÁC THỰC BẢO MẬT (AUTHENTICATION)
+    // =========================================================
+    function checkAuth() {
+        const isAuth = sessionStorage.getItem('mc_admin_authenticated');
+        if (isAuth === 'true') {
+            lockScreen.classList.add('hidden');
+            adminDashboard.classList.remove('hidden');
+            loadGitHubSettings();
+            renderAdminDashboard();
+        } else {
+            lockScreen.classList.remove('hidden');
+            adminDashboard.classList.add('hidden');
+        }
+    }
+
+    lockForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const enteredPin = adminPasscode.value.trim();
+
+        if (enteredPin === SECRET_PASSCODE) {
+            sessionStorage.setItem('mc_admin_authenticated', 'true');
+            showToast('Mở khóa quản trị thành công! Chào mừng bạn.', 'success');
+            checkAuth();
+        } else {
+            adminPasscode.classList.add('shake-error');
+            showToast('Mã bảo mật không đúng! Vui lòng thử lại.', 'error');
+            setTimeout(() => {
+                adminPasscode.classList.remove('shake-error');
+            }, 600);
+        }
+    });
+
+    btnAdminLogout.addEventListener('click', () => {
+        sessionStorage.removeItem('mc_admin_authenticated');
+        adminPasscode.value = '';
+        checkAuth();
+        showToast('Đã đăng xuất an toàn.');
+    });
+
+    // =========================================================
+    // 2. TOAST NOTIFICATION
+    // =========================================================
+    function showToast(message, type = 'success') {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        const icon = type === 'success' ? 'fa-solid fa-circle-check' : 'fa-solid fa-triangle-exclamation';
+        toast.innerHTML = `<i class="${icon}"></i> <span>${message}</span>`;
+        toastContainer.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(10px)';
+            toast.style.transition = 'all 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 3000);
+    }
+
+    // =========================================================
+    // 3. QUẢN LÝ DỮ LIỆU (LOCAL STORAGE & DATA.JS)
+    // =========================================================
+    function getResources() {
+        try {
+            const local = localStorage.getItem('mc_custom_resources');
+            if (local) {
+                const parsed = JSON.parse(local);
+                if (Array.isArray(parsed) && parsed.length > 0) {
+                    return parsed;
+                }
+            }
+        } catch (e) {
+            console.error('Lỗi đọc local data:', e);
+        }
+        return typeof resourceData !== 'undefined' ? JSON.parse(JSON.stringify(resourceData)) : [];
+    }
+
+    function saveResources(data) {
+        localStorage.setItem('mc_custom_resources', JSON.stringify(data));
+        window.dispatchEvent(new Event('storage'));
+        refreshPreviewFrame();
+    }
+
+    let currentItems = getResources();
+
+    // =========================================================
+    // 4. CHUYỂN TAB ADMIN
+    // =========================================================
+    adminNavBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            adminNavBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const targetTab = btn.getAttribute('data-tab');
+            adminTabContents.forEach(tab => {
+                if (tab.id === targetTab) {
+                    tab.classList.remove('hidden');
+                } else {
+                    tab.classList.add('hidden');
+                }
+            });
+
+            if (targetTab === 'tab-preview') {
+                refreshPreviewFrame();
+            }
+        });
+    });
+
+    // =========================================================
+    // 5. 1-CHẠM CHỌN THỂ LOẠI (1-CLICK CATEGORY SELECTOR)
+    // =========================================================
+    function setCategory(cat) {
+        selectedCategory = cat;
+        if (cat === 'fixlag') {
+            btnCatFixlag.classList.add('active');
+            btnCatLitematica.classList.remove('active');
+            if (formGroupVersion) formGroupVersion.style.display = 'block';
+            farmInfoSection.style.display = 'none';
+        } else {
+            btnCatLitematica.classList.add('active');
+            btnCatFixlag.classList.remove('active');
+            if (formGroupVersion) formGroupVersion.style.display = 'none';
+            farmInfoSection.style.display = 'block';
+        }
+    }
+
+    btnCatFixlag.addEventListener('click', () => setCategory('fixlag'));
+    btnCatLitematica.addEventListener('click', () => setCategory('litematica'));
+
+    // =========================================================
+    // 6. RENDER BẢNG QUẢN LÝ TÀI NGUYÊN
+    // =========================================================
+    function renderAdminDashboard() {
+        currentItems = getResources();
+        
+        // Cập nhật thống kê
+        admTotal.textContent = currentItems.length;
+        admFixlag.textContent = currentItems.filter(i => i.category === 'fixlag').length;
+        admLitematica.textContent = currentItems.filter(i => i.category === 'litematica').length;
+
+        // Render Table
+        renderAdminTable();
+    }
+
+    function renderAdminTable(filterKeyword = '') {
+        adminItemsTbody.innerHTML = '';
+
+        let filtered = currentItems;
+        if (filterKeyword.trim() !== '') {
+            const q = filterKeyword.toLowerCase();
+            filtered = currentItems.filter(i => 
+                (i.title && i.title.toLowerCase().includes(q)) ||
+                (i.category && i.category.toLowerCase().includes(q)) ||
+                (i.link && i.link.toLowerCase().includes(q))
+            );
+        }
+
+        if (filtered.length === 0) {
+            adminItemsTbody.innerHTML = `
+                <tr>
+                    <td colspan="7" style="text-align: center; padding: 40px; color: var(--text-muted);">
+                        Không tìm thấy tài nguyên nào phù hợp.
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        filtered.forEach(item => {
+            const tr = document.createElement('tr');
+
+            const isFixlag = item.category === 'fixlag';
+            const badgeClass = isFixlag ? 'tag-fixlag' : 'tag-litematica';
+            const badgeText = isFixlag ? 'Fix Lag' : 'Litematica';
+
+            const imgHtml = item.image && item.image.trim() !== ''
+                ? `<img src="${item.image}" alt="" style="width:48px;height:48px;border-radius:8px;object-fit:cover;" onerror="this.src='https://placehold.co/48x48/1e293b/white?text=MC'">`
+                : `<div style="width:48px;height:48px;border-radius:8px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;"><i class="${isFixlag ? 'fa-solid fa-gauge-high' : 'fa-solid fa-cubes'}" style="color:var(--text-muted);"></i></div>`;
+
+            const versionText = isFixlag ? `<code>${item.version || '1.21+'}</code>` : `<span style="color:var(--primary);font-size:0.85rem;"><i class="fa-solid fa-infinity"></i> Mọi bản</span>`;
+
+            const infoText = item.farmInfo && item.farmInfo.profit 
+                ? `<div><span style="color:var(--emerald);font-weight:700;">${item.farmInfo.profit}</span>${item.farmInfo.cost ? `<div style="color:var(--amber);font-size:0.78rem;">Vốn: ${item.farmInfo.cost}</div>` : ''}</div>` 
+                : `<span style="color:var(--text-muted);">${item.size || 'Mặc định'}</span>`;
+
+            tr.innerHTML = `
+                <td>${imgHtml}</td>
+                <td>
+                    <strong style="color:var(--text-main);font-size:0.95rem;">${item.title}</strong>
+                </td>
+                <td>
+                    <span class="badge-tag ${badgeClass}">${badgeText}</span>
+                </td>
+                <td>${versionText}</td>
+                <td>${infoText}</td>
+                <td>
+                    <a href="${item.link}" target="_blank" style="color:var(--secondary);font-size:0.85rem;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Link rút gọn
+                    </a>
+                </td>
+                <td style="text-align: right;">
+                    <div class="action-btn-group" style="justify-content: flex-end;">
+                        <button type="button" class="btn-table-edit" data-id="${item.id}" title="Chỉnh sửa">
+                            <i class="fa-solid fa-pen-to-square"></i>
                         </button>
-                        <button type="button" class="btn-detail" id="btn-export-datajs" title="Tải file data.js về máy để sao lưu">
-                            <i class="fa-solid fa-download"></i> Tải File data.js
-                        </button>
-                        <button type="button" class="btn-detail" id="btn-copy-datajs" title="Sao chép toàn bộ code data.js vào bộ nhớ tạm">
-                            <i class="fa-solid fa-copy"></i> Sao Chép Mã
+                        <button type="button" class="btn-table-delete" data-id="${item.id}" title="Xóa tài nguyên">
+                            <i class="fa-solid fa-trash"></i>
                         </button>
                     </div>
-                </div>
-            </div>
+                </td>
+            `;
 
-            <!-- Search in Admin Table -->
-            <div class="search-wrapper" style="margin-bottom: 16px;">
-                <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="admin-search-input" class="search-input" placeholder="Lọc nhanh danh sách trong bảng quản trị...">
-            </div>
+            adminItemsTbody.appendChild(tr);
+        });
 
-            <!-- Data Table -->
-            <div class="admin-table-container">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 70px;">Ảnh</th>
-                            <th>Tên Tài Nguyên</th>
-                            <th>Thể Loại</th>
-                            <th>Phiên Bản / Dạng File</th>
-                            <th>Lợi Nhuận / Thông Số</th>
-                            <th>Link Rút Gọn</th>
-                            <th style="text-align: right; width: 140px;">Thao Tác</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-items-tbody"></tbody>
-                </table>
-            </div>
-        </section>
+        // Gán sự kiện Sửa
+        document.querySelectorAll('.btn-table-edit').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = e.currentTarget.getAttribute('data-id');
+                const item = currentItems.find(i => i.id === id);
+                if (item) openEditModal(item);
+            });
+        });
 
-        <!-- ==========================================
-             TAB 2: XEM TRƯỚC TRANG KHÁCH (LIVE PREVIEW)
-             ========================================== -->
-        <section class="admin-tab-content hidden" id="tab-preview">
-            <div class="preview-container">
-                <div class="preview-toolbar">
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <span style="font-weight: 700; color: var(--text-sub);">Chế độ xem trước:</span>
-                        <button type="button" class="admin-nav-btn active" id="btn-view-desktop">
-                            <i class="fa-solid fa-desktop"></i> Máy Tính
-                        </button>
-                        <button type="button" class="admin-nav-btn" id="btn-view-mobile">
-                            <i class="fa-solid fa-mobile-screen"></i> Điện Thoại
-                        </button>
-                    </div>
-                    <button type="button" class="btn-detail" id="btn-refresh-preview">
-                        <i class="fa-solid fa-rotate-right"></i> Làm Mới Giao Diện
-                    </button>
-                </div>
+        // Gán sự kiện Xóa
+        document.querySelectorAll('.btn-table-delete').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = e.currentTarget.getAttribute('data-id');
+                deleteItem(id);
+            });
+        });
+    }
 
-                <div class="preview-frame-wrapper" id="preview-frame-wrapper">
-                    <iframe src="index.html" class="preview-iframe" id="preview-iframe"></iframe>
-                </div>
-            </div>
-        </section>
+    // Tìm kiếm trong bảng quản trị
+    if (adminSearchInput) {
+        adminSearchInput.addEventListener('input', (e) => {
+            renderAdminTable(e.target.value);
+        });
+    }
 
-        <!-- ==========================================
-             TAB 3: TỰ ĐỘNG ĐẨY LÊN GITHUB & VERCEL
-             ========================================== -->
-        <section class="admin-tab-content hidden" id="tab-github">
-            <div class="filter-control-panel">
-                <h3 style="font-size: 1.3rem; margin-bottom: 8px; color: var(--text-main);">
-                    <i class="fa-brands fa-github" style="color: var(--secondary);"></i> Tự Động Đồng Bộ & Đẩy Lên Vercel
-                </h3>
-                <p style="color: var(--text-sub); font-size: 0.92rem; margin-bottom: 24px;">
-                    Không cần tải file về máy! Bạn chỉ cần điền GitHub Token 1 lần duy nhất, mỗi khi bấm "Lưu & Đẩy Lên Web", hệ thống sẽ tự động commit thẳng lên GitHub và Vercel sẽ tự động cập nhật web cho tất cả khách hàng.
-                </p>
+    // =========================================================
+    // 7. FORM THÊM / SỬA TÀI NGUYÊN
+    // =========================================================
+    function openAddModal() {
+        formModalTitle.textContent = 'Thêm Tài Nguyên Mới';
+        itemIdInput.value = '';
+        resourceForm.reset();
+        setCategory('fixlag');
+        resourceModal.classList.add('active');
+    }
 
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">Repository GitHub</label>
-                        <input type="text" id="gh-repo" class="form-input" value="shopwarlergen/mc" placeholder="username/repository">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Nhánh (Branch)</label>
-                        <input type="text" id="gh-branch" class="form-input" value="main" placeholder="main hoặc master">
-                    </div>
-                    <div class="form-group-full">
-                        <label class="form-label">
-                            GitHub Personal Access Token (PAT) <span class="required">*</span>
-                        </label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="password" id="gh-token" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" style="flex: 1;">
-                            <button type="button" class="btn-detail" id="btn-toggle-token-visibility">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+    function openEditModal(item) {
+        formModalTitle.textContent = 'Chỉnh Sửa Tài Nguyên';
+        itemIdInput.value = item.id;
+        
+        setCategory(item.category || 'fixlag');
+        itemTitle.value = item.title || '';
+        itemVersion.value = item.version || '';
+        itemSize.value = item.size || '';
+        itemImage.value = item.image || '';
+        itemLink.value = item.link || '';
+        itemDesc.value = item.description || '';
 
-                <div style="display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap;">
-                    <button type="button" class="btn-download" id="btn-save-gh-settings" style="width: auto;">
-                        <i class="fa-solid fa-floppy-disk"></i> Lưu Cấu Hình Token
-                    </button>
-                    <button type="button" class="btn-download" id="btn-push-now" style="width: auto; background: linear-gradient(135deg, #10b981, #06b6d4);">
-                        <i class="fa-solid fa-rocket"></i> Đẩy Toàn Bộ Dữ Liệu Lên GitHub Ngay
-                    </button>
-                </div>
-            </div>
-        </section>
-    </div>
+        if (item.farmInfo) {
+            farmProfit.value = item.farmInfo.profit || '';
+            farmCost.value = item.farmInfo.cost || '';
+            farmDimensions.value = item.farmInfo.dimensions || '';
+            farmNotes.value = item.farmInfo.notes || '';
+        } else {
+            farmProfit.value = '';
+            farmCost.value = '';
+            farmDimensions.value = '';
+            farmNotes.value = '';
+        }
 
-    <!-- ==========================================
-         MODAL THÊM / SỬA TÀI NGUYÊN (RESOURCE MODAL)
-         ========================================== -->
-    <div class="modal-overlay" id="resource-modal">
-        <div class="modal-content" style="max-width: 720px;">
-            <div class="modal-header">
-                <h2 class="modal-title" id="form-modal-title">Thêm Tài Nguyên Mới</h2>
-                <button type="button" class="btn-close-modal" id="btn-close-resource-modal">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            
-            <form id="resource-form" class="modal-body">
-                <input type="hidden" id="item-id">
+        resourceModal.classList.add('active');
+    }
 
-                <!-- 1-CHẠM CHỌN THỂ LOẠI (CATEGORY 1-CLICK SELECTOR) -->
-                <label class="form-label">Chọn Thể Loại Tài Nguyên <span class="required">*</span></label>
-                <div class="category-toggle-group">
-                    <button type="button" class="category-pill-btn active" data-category="fixlag" id="btn-cat-fixlag">
-                        <i class="fa-solid fa-bolt"></i> ⚡ Fix Lag (FPS/Mod)
-                    </button>
-                    <button type="button" class="category-pill-btn" data-category="litematica" id="btn-cat-litematica">
-                        <i class="fa-solid fa-cubes"></i> 📦 Bản Vẽ Litematica
-                    </button>
-                </div>
+    function closeResourceModal() {
+        resourceModal.classList.remove('active');
+    }
 
-                <div class="form-grid">
-                    <!-- Title -->
-                    <div class="form-group-full">
-                        <label class="form-label" for="item-title">Tiêu đề / Tên file <span class="required">*</span></label>
-                        <input type="text" id="item-title" class="form-input" placeholder="VD: Sodium Tối Ưu FPS hoặc Farm Đá DonutSMP..." required>
-                    </div>
+    btnOpenAddModal.addEventListener('click', openAddModal);
+    btnCloseResourceModal.addEventListener('click', closeResourceModal);
+    btnCancelForm.addEventListener('click', closeResourceModal);
 
-                    <!-- Version (Chỉ hiện khi là Fix Lag) -->
-                    <div class="form-group" id="form-group-version">
-                        <label class="form-label" for="item-version">Phiên bản Minecraft <span class="required">*</span></label>
-                        <input type="text" id="item-version" class="form-input" placeholder="VD: 1.21.4, 1.21+, 1.20...">
-                    </div>
+    // Xử lý Lưu Form
+    resourceForm.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-                    <!-- Size -->
-                    <div class="form-group" id="form-group-size">
-                        <label class="form-label" for="item-size">Dung lượng file</label>
-                        <input type="text" id="item-size" class="form-input" placeholder="VD: 2.96 KB, 1.2 MB...">
-                    </div>
+        const id = itemIdInput.value.trim() || `${selectedCategory}-${Date.now()}`;
+        const title = itemTitle.value.trim();
+        const version = selectedCategory === 'fixlag' ? itemVersion.value.trim() : '';
+        const size = itemSize.value.trim();
+        const image = itemImage.value.trim();
+        const link = itemLink.value.trim();
+        const description = itemDesc.value.trim();
 
-                    <!-- Image Link -->
-                    <div class="form-group-full">
-                        <label class="form-label" for="item-image">Link Ảnh Minh Họa (URL)</label>
-                        <input type="url" id="item-image" class="form-input" placeholder="Dán link ảnh từ Imgur, Postimg, ForgeCDN... (để trống nếu không có)">
-                    </div>
+        let farmInfo = null;
+        if (selectedCategory === 'litematica') {
+            farmInfo = {
+                profit: farmProfit.value.trim() || 'N/A',
+                cost: farmCost.value.trim() || '0đ (Miễn phí)',
+                dimensions: farmDimensions.value.trim() || 'N/A',
+                notes: farmNotes.value.trim() || description
+            };
+        }
 
-                    <!-- Shortened Link (KIẾM TIỀN) -->
-                    <div class="form-group-full">
-                        <label class="form-label" for="item-link">Link Rút Gọn Tải Về (Kiếm tiền) <span class="required">*</span></label>
-                        <input type="url" id="item-link" class="form-input" placeholder="VD: https://link4m.org/abcxyz, https://link1s.com/..." required>
-                    </div>
+        const resourceObj = {
+            id,
+            category: selectedCategory,
+            title,
+            description,
+            size,
+            image,
+            link,
+            tags: selectedCategory === 'fixlag' ? ['Sodium', 'FPS'] : ['Farm', title.split(' ')[0] || 'Litematica']
+        };
 
-                    <!-- Description -->
-                    <div class="form-group-full">
-                        <label class="form-label" for="item-desc">Mô tả ngắn</label>
-                        <textarea id="item-desc" class="form-textarea" placeholder="Mô tả công dụng, tính năng nổi bật..."></textarea>
-                    </div>
-                </div>
+        if (selectedCategory === 'fixlag' && version) {
+            resourceObj.version = version;
+        }
 
-                <!-- KHỐI THÔNG SỐ MÁY FARM (CHỈ HIỆN KHI CHỌN LITEMATICA) -->
-                <div id="farm-info-section" style="display: none; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px; margin-top: 10px;">
-                    <h3 style="font-size: 1rem; color: var(--primary); margin-bottom: 14px;">
-                        <i class="fa-solid fa-coins"></i> Lợi Nhuận & Vốn Vận Hành (Litematica)
-                    </h3>
-                    
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label class="form-label" for="farm-profit">📈 Lợi nhuận của máy</label>
-                            <input type="text" id="farm-profit" class="form-input" placeholder="VD: 1.200.000 Đá / Giờ, 180 Khối Vàng + XP...">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="farm-cost">💰 Vốn để vận hành</label>
-                            <input type="text" id="farm-cost" class="form-input" placeholder="VD: 9.230 TNT / Giờ hoặc 0đ (Miễn phí)...">
-                        </div>
-                        <div class="form-group-full">
-                            <label class="form-label" for="farm-dimensions">📏 Kích thước máy (Dimensions)</label>
-                            <input type="text" id="farm-dimensions" class="form-input" placeholder="VD: 24 x 24 x 18 Blocks...">
-                        </div>
-                        <div class="form-group-full">
-                            <label class="form-label" for="farm-notes">📝 Lưu ý & Hướng dẫn vận hành</label>
-                            <textarea id="farm-notes" class="form-textarea" placeholder="Ghi chú khi bật máy, lưu ý bẫy Wither, hoặc hướng dẫn nạp TNT..."></textarea>
-                        </div>
-                    </div>
-                </div>
+        if (farmInfo) {
+            resourceObj.farmInfo = farmInfo;
+        }
 
-                <div class="modal-footer" style="padding: 16px 0 0; margin-top: 16px;">
-                    <button type="button" class="btn-detail" id="btn-cancel-form" style="width: auto;">Hủy</button>
-                    <button type="submit" class="btn-download" id="btn-save-item">
-                        <i class="fa-solid fa-floppy-disk"></i> Lưu Dữ Liệu
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
+        const existingIndex = currentItems.findIndex(i => i.id === id);
+        if (existingIndex > -1) {
+            currentItems[existingIndex] = resourceObj;
+            showToast('Đã cập nhật thông tin tài nguyên thành công!');
+        } else {
+            currentItems.unshift(resourceObj);
+            showToast('Đã thêm tài nguyên mới thành công!');
+        }
 
-    <!-- Toast Notification Container -->
-    <div class="toast-container" id="toast-container"></div>
+        saveResources(currentItems);
+        renderAdminDashboard();
+        closeResourceModal();
+    });
 
-    <!-- Scripts -->
-    <script src="data.js"></script>
-    <script src="admin.js"></script>
-</body>
-</html>
+    // Xóa item
+    function deleteItem(id) {
+        const item = currentItems.find(i => i.id === id);
+        if (!item) return;
+
+        if (confirm(`Bạn có chắc chắn muốn xóa "${item.title}" khỏi hệ thống không?`)) {
+            currentItems = currentItems.filter(i => i.id !== id);
+            saveResources(currentItems);
+            renderAdminDashboard();
+            showToast(`Đã xóa "${item.title}"!`);
+        }
+    }
+
+    // =========================================================
+    // 8. XUẤT VÀ SAO CHÉP FILE DATA.JS (EXPORT DATA.JS)
+    // =========================================================
+    function generateDataJsContent() {
+        return `/* =========================================================
+   DATA.JS - Cơ sở dữ liệu Resource Hub
+   Minecraft Fix Lag & Bản vẽ Litematica
+   Được cập nhật tự động bởi Minecraft Admin Portal
+   ========================================================= */
+
+const resourceData = ${JSON.stringify(currentItems, null, 4)};
+
+// Xuất biến cho các module khác nếu cần
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = resourceData;
+}
+`;
+    }
+
+    btnExportDatajs.addEventListener('click', () => {
+        const content = generateDataJsContent();
+        const blob = new Blob([content], { type: 'text/javascript;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'data.js';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('Đã tải xuống file data.js thành công!');
+    });
+
+    btnCopyDatajs.addEventListener('click', () => {
+        const content = generateDataJsContent();
+        navigator.clipboard.writeText(content).then(() => {
+            showToast('Đã sao chép toàn bộ mã data.js vào clipboard!');
+        }).catch(() => {
+            showToast('Không thể tự động sao chép mã!', 'error');
+        });
+    });
+
+    // =========================================================
+    // 9. XEM TRƯỚC TRANG KHÁCH (LIVE CLIENT PREVIEW)
+    // =========================================================
+    function refreshPreviewFrame() {
+        if (previewIframe) {
+            previewIframe.src = 'index.html?v=' + Date.now();
+        }
+    }
+
+    btnRefreshPreview.addEventListener('click', () => {
+        refreshPreviewFrame();
+        showToast('Đã làm mới giao diện xem trước!');
+    });
+
+    btnViewDesktop.addEventListener('click', () => {
+        btnViewDesktop.classList.add('active');
+        btnViewMobile.classList.remove('active');
+        previewFrameWrapper.classList.remove('mobile-view');
+    });
+
+    btnViewMobile.addEventListener('click', () => {
+        btnViewMobile.classList.add('active');
+        btnViewDesktop.classList.remove('active');
+        previewFrameWrapper.classList.add('mobile-view');
+    });
+
+    // =========================================================
+    // 10. TỰ ĐỘNG ĐẨY LÊN GITHUB & VERCEL (GITHUB API AUTO-SYNC)
+    // =========================================================
+    function loadGitHubSettings() {
+        ghRepo.value = localStorage.getItem('mc_gh_repo') || 'shopwarlergen/mc';
+        ghBranch.value = localStorage.getItem('mc_gh_branch') || 'main';
+        ghToken.value = localStorage.getItem('mc_gh_token') || '';
+    }
+
+    btnSaveGhSettings.addEventListener('click', () => {
+        localStorage.setItem('mc_gh_repo', ghRepo.value.trim());
+        localStorage.setItem('mc_gh_branch', ghBranch.value.trim());
+        localStorage.setItem('mc_gh_token', ghToken.value.trim());
+        showToast('Đã lưu cấu hình GitHub Token an toàn!');
+    });
+
+    btnToggleTokenVisibility.addEventListener('click', () => {
+        if (ghToken.type === 'password') {
+            ghToken.type = 'text';
+            btnToggleTokenVisibility.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+        } else {
+            ghToken.type = 'password';
+            btnToggleTokenVisibility.innerHTML = '<i class="fa-solid fa-eye"></i>';
+        }
+    });
+
+    // Hàm gọi GitHub REST API để tự động Commit file data.js
+    async function pushToGitHub() {
+        const repo = ghRepo.value.trim();
+        const branch = ghBranch.value.trim();
+        const token = ghToken.value.trim();
+
+        if (!token) {
+            showToast('Vui lòng nhập GitHub Personal Access Token trước!', 'error');
+            return;
+        }
+
+        const filePath = 'data.js';
+        const fileContent = generateDataJsContent();
+        
+        // Encode utf-8 to base64
+        const contentBase64 = btoa(unescape(encodeURIComponent(fileContent)));
+
+        showToast('Đang kết nối và đẩy dữ liệu lên GitHub...');
+
+        try {
+            // Bước 1: Lấy file SHA hiện tại từ GitHub
+            let currentSha = null;
+            const getFileRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}?ref=${branch}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (getFileRes.ok) {
+                const fileData = await getFileRes.json();
+                currentSha = fileData.sha;
+            }
+
+            // Bước 2: Gửi request PUT để tạo commit mới
+            const payload = {
+                message: `Cập nhật Lợi nhuận & Vốn vận hành từ Admin Hub [${new Date().toLocaleString('vi-VN')}]`,
+                content: contentBase64,
+                branch: branch
+            };
+
+            if (currentSha) {
+                payload.sha = currentSha;
+            }
+
+            const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/vnd.github.v3+json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (putRes.ok) {
+                showToast('🚀 Đã đẩy lên GitHub thành công! Vercel đang cập nhật website tự động.', 'success');
+            } else {
+                const errData = await putRes.json();
+                console.error('GitHub API Error:', errData);
+                showToast(`Lỗi GitHub: ${errData.message || 'Không thể commit file'}`, 'error');
+            }
+        } catch (err) {
+            console.error('Lỗi khi đẩy lên GitHub:', err);
+            showToast('Lỗi mạng hoặc không thể kết nối tới GitHub API!', 'error');
+        }
+    }
+
+    btnPushNow.addEventListener('click', pushToGitHub);
+
+    // Khởi chạy kiểm tra đăng nhập
+    checkAuth();
+});
