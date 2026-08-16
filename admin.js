@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnCatFixlag.addEventListener('click', () => setCategory('fixlag'));
     btnCatLitematica.addEventListener('click', () => setCategory('litematica'));
 
-    // Gợi ý thẻ tags đã có sẵn trong hệ thống
+    // Gợi ý thẻ tags: Chỉ hiển thị các thẻ do chính bạn đã tạo trong dữ liệu
     function renderSuggestedTags() {
         if (!suggestedTagsContainer) return;
         suggestedTagsContainer.innerHTML = '';
@@ -219,18 +219,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (tags.size === 0) {
-            // Mặc định gợi ý mẫu
-            if (selectedCategory === 'fixlag') {
-                ['Sodium', 'Tối Ưu FPS', 'Fabric', 'Iris Shader'].forEach(t => tags.add(t));
-            } else {
-                ['Farm Đá', 'Farm Sắt', 'Farm Vàng', 'Farm Tảo Bẹ', 'TNT Duper'].forEach(t => tags.add(t));
-            }
+            const label = document.createElement('span');
+            label.style.fontSize = '0.8rem';
+            label.style.color = 'var(--text-muted)';
+            label.textContent = 'Chưa có thẻ nào được tạo. Hãy nhập tên thẻ bạn muốn vào ô bên trên!';
+            suggestedTagsContainer.appendChild(label);
+            return;
         }
 
         const label = document.createElement('span');
         label.style.fontSize = '0.75rem';
         label.style.color = 'var(--text-muted)';
-        label.textContent = 'Gợi ý bấm nhanh:';
+        label.textContent = 'Bấm nhanh các thẻ bạn đã tạo:';
         suggestedTagsContainer.appendChild(label);
 
         Array.from(tags).forEach(tag => {
@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const link = itemLink.value.trim();
         const description = itemDesc.value.trim();
 
-        // Tách danh sách tags từ input
+        // Tách danh sách tags do người dùng tự nhập
         const tags = itemTags.value
             .split(',')
             .map(t => t.trim())
@@ -456,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
             size,
             image,
             link,
-            tags: tags.length > 0 ? tags : [title.split(' ')[0] || 'Minecraft']
+            tags: tags // Chỉ nhận các tag người dùng tự nhập
         };
 
         if (selectedCategory === 'fixlag' && version) {
@@ -610,7 +610,7 @@ if (typeof module !== 'undefined' && module.exports) {
         try {
             // Bước 1: Lấy file SHA hiện tại từ GitHub
             let currentSha = null;
-            const getFileRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}?ref=${branch}`, {
+            const getFileRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}?ref=${branch}&_t=${Date.now()}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Accept': 'application/vnd.github.v3+json'
@@ -624,7 +624,7 @@ if (typeof module !== 'undefined' && module.exports) {
 
             // Bước 2: Gửi request PUT để tạo commit mới
             const payload = {
-                message: `Cập nhật thẻ tags & dữ liệu Resource Hub [${new Date().toLocaleString('vi-VN')}]`,
+                message: `Cập nhật Resource Hub [${new Date().toLocaleString('vi-VN')}]`,
                 content: contentBase64,
                 branch: branch
             };

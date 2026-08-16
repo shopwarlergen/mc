@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (countLitematica) countLitematica.textContent = litematicaCount;
     }
 
-    // 3. Tự động sinh danh sách Thẻ Tag động (Dynamic Tag Chips)
+    // 3. Tự động sinh danh sách Thẻ Tag động (Chỉ hiển thị khi có thẻ do người dùng tự tạo)
     function renderTagChips() {
         if (!tagChipsContainer) return;
         tagChipsContainer.innerHTML = '';
@@ -97,6 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (t && t.trim() !== '') tags.add(t.trim());
             });
         });
+
+        // Nếu chưa có thẻ nào được tạo, ẩn vùng tag chips
+        if (tags.size === 0) {
+            tagChipsContainer.style.display = 'none';
+            return;
+        } else {
+            tagChipsContainer.style.display = 'flex';
+        }
 
         // Nút "Tất cả thẻ"
         const allBtn = document.createElement('button');
@@ -281,7 +289,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }
 
-            // Hiển thị tags trên card
+            // Hiển thị tags trên card nếu có
             let tagsHTML = '';
             if (item.tags && item.tags.length > 0) {
                 tagsHTML = `
