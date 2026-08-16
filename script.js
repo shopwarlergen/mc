@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnClearSearch = document.getElementById('btn-clear-search');
     const categoryTabs = document.querySelectorAll('#category-tabs .tab-btn');
     const versionSelect = document.getElementById('filter-version');
+    const versionFilterWrapper = document.getElementById('version-filter-wrapper');
     const sortSelect = document.getElementById('filter-sort');
     const tagChips = document.querySelectorAll('#tag-chips-container .chip-btn');
     const toastContainer = document.getElementById('toast-container');
@@ -44,11 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalTitle = document.getElementById('modal-title');
     const modalImg = document.getElementById('modal-img');
     const modalImageContainer = document.getElementById('modal-image-container');
-    const modalYield = document.getElementById('modal-yield');
+    const modalProfit = document.getElementById('modal-profit');
+    const modalCost = document.getElementById('modal-cost');
     const modalDimensions = document.getElementById('modal-dimensions');
-    const modalDifficulty = document.getElementById('modal-difficulty');
-    const modalVersion = document.getElementById('modal-version');
-    const modalMaterials = document.getElementById('modal-materials');
     const modalNotes = document.getElementById('modal-notes');
     const modalDownloadBtn = document.getElementById('modal-download-btn');
     const btnCopyModalLink = document.getElementById('btn-copy-modal-link');
@@ -94,11 +93,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (countLitematica) countLitematica.textContent = litematicaCount;
     }
 
-    // 3. Tự động trích xuất các phiên bản Minecraft vào Dropdown
+    // 3. Tự động trích xuất các phiên bản Minecraft cho mục Fix Lag
     function populateVersions() {
         const versions = new Set();
         allItems.forEach(item => {
-            if (item.version && item.version.trim() !== '') {
+            if (item.category === 'fixlag' && item.version && item.version.trim() !== '') {
                 versions.add(item.version.trim());
             }
         });
@@ -117,14 +116,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderCards() {
         cardsContainer.innerHTML = '';
 
+        // Ẩn dropdown phiên bản nếu người dùng đang ở tab Litematica
+        if (currentCategory === 'litematica') {
+            versionFilterWrapper.style.display = 'none';
+        } else {
+            versionFilterWrapper.style.display = 'flex';
+        }
+
         let filtered = allItems.filter(item => {
             // Lọc theo thể loại (Category)
             if (currentCategory !== 'all' && item.category !== currentCategory) {
                 return false;
             }
 
-            // Lọc theo phiên bản (Version)
-            if (currentVersion !== 'all' && item.version !== currentVersion) {
+            // Lọc theo phiên bản (Chỉ áp dụng cho Fix Lag)
+            if (item.category === 'fixlag' && currentVersion !== 'all' && item.version !== currentVersion) {
                 return false;
             }
 
@@ -143,12 +149,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const q = searchQuery.toLowerCase();
                 const titleMatch = item.title ? item.title.toLowerCase().includes(q) : false;
                 const descMatch = item.description ? item.description.toLowerCase().includes(q) : false;
-                const verMatch = item.version ? item.version.toLowerCase().includes(q) : false;
+                const verMatch = (item.version && item.category === 'fixlag') ? item.version.toLowerCase().includes(q) : false;
                 const tagMatch = (item.tags || []).some(t => t.toLowerCase().includes(q));
                 
                 let farmMatch = false;
                 if (item.farmInfo) {
-                    const farmStr = `${item.farmInfo.yield || ''} ${item.farmInfo.materials || ''} ${item.farmInfo.notes || ''}`.toLowerCase();
+                    const farmStr = `${item.farmInfo.profit || ''} ${item.farmInfo.cost || ''} ${item.farmInfo.dimensions || ''} ${item.farmInfo.notes || ''}`.toLowerCase();
                     farmMatch = farmStr.includes(q);
                 }
 
@@ -184,6 +190,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const tagClass = isFixlag ? 'tag-fixlag' : 'tag-litematica';
             const tagLabel = isFixlag ? 'Fix Lag FPS' : 'Litematica';
 
+            // Version badge (chỉ hiển thị đối với fixlag)
+            const versionBadgeHTML = isFixlag 
+                ? `<span class="badge-version">${item.version || 'Mọi phiên bản'}</span>` 
+                : `<span class="badge-version" style="background: rgba(139, 92, 246, 0.2); border-color: var(--primary);"><i class="fa-solid fa-cubes"></i> Bản vẽ</span>`;
+
             // Xử lý ảnh đại diện
             let imageHTML = '';
             if (item.image && item.image.trim() !== '') {
@@ -193,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
                              onerror="this.parentElement.innerHTML='<div class=\\'card-image-wrapper\\'><i class=\\'${isFixlag ? 'fa-solid fa-gauge-high' : 'fa-solid fa-cubes'}\\' style=\\'font-size:3.5rem;color:rgba(255,255,255,0.15)\\'></i></div>'">
                         <div class="card-top-badges">
                             <span class="badge-tag ${tagClass}">${tagLabel}</span>
-                            <span class="badge-version">${item.version || 'Mọi phiên bản'}</span>
+                            ${versionBadgeHTML}
                         </div>
                     </div>
                 `;
@@ -203,25 +214,26 @@ document.addEventListener('DOMContentLoaded', () => {
                         <i class="${isFixlag ? 'fa-solid fa-gauge-high' : 'fa-solid fa-cubes'} card-placeholder-icon"></i>
                         <div class="card-top-badges">
                             <span class="badge-tag ${tagClass}">${tagLabel}</span>
-                            <span class="badge-version">${item.version || 'Mọi phiên bản'}</span>
+                            ${versionBadgeHTML}
                         </div>
                     </div>
                 `;
             }
 
-            // Xử lý khối thông số máy farm nếu có
+            // Xử lý khối thông số máy farm (Lợi nhuận & Vốn vận hành)
             let farmSnippetHTML = '';
-            if (item.farmInfo && item.farmInfo.yield) {
+            if (item.farmInfo) {
                 farmSnippetHTML = `
                     <div class="farm-specs-box">
+                        ${item.farmInfo.profit ? `
                         <div class="spec-line">
-                            <span class="spec-label"><i class="fa-solid fa-bolt-lightning"></i> Năng suất:</span>
-                            <span class="spec-value yield-highlight">${item.farmInfo.yield}</span>
-                        </div>
-                        ${item.farmInfo.difficulty ? `
+                            <span class="spec-label"><i class="fa-solid fa-chart-line"></i> Lợi nhuận:</span>
+                            <span class="spec-value yield-highlight">${item.farmInfo.profit}</span>
+                        </div>` : ''}
+                        ${item.farmInfo.cost ? `
                         <div class="spec-line">
-                            <span class="spec-label"><i class="fa-solid fa-shield-halved"></i> Độ khó:</span>
-                            <span class="spec-value">${item.farmInfo.difficulty}</span>
+                            <span class="spec-label"><i class="fa-solid fa-coins"></i> Vốn vận hành:</span>
+                            <span class="spec-value" style="color: var(--amber);">${item.farmInfo.cost}</span>
                         </div>` : ''}
                     </div>
                 `;
@@ -242,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     <div class="card-actions">
                         ${item.farmInfo ? `
-                            <button type="button" class="btn-detail btn-open-detail" data-id="${item.id}" title="Xem bảng nguyên liệu & thông số">
+                            <button type="button" class="btn-detail btn-open-detail" data-id="${item.id}" title="Xem bảng thông số & lợi nhuận">
                                 <i class="fa-solid fa-circle-info"></i> Chi tiết
                             </button>
                         ` : ''}
@@ -284,7 +296,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function openDetailModal(item) {
         activeModalItem = item;
         modalTitle.textContent = item.title;
-        modalVersion.textContent = item.version || '1.21+';
 
         if (item.image && item.image.trim() !== '') {
             modalImg.src = item.image;
@@ -294,16 +305,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (item.farmInfo) {
-            modalYield.textContent = item.farmInfo.yield || 'N/A';
+            modalProfit.textContent = item.farmInfo.profit || 'N/A';
+            modalCost.textContent = item.farmInfo.cost || 'Miễn phí';
             modalDimensions.textContent = item.farmInfo.dimensions || 'N/A';
-            modalDifficulty.textContent = item.farmInfo.difficulty || 'Trung bình';
-            modalMaterials.textContent = item.farmInfo.materials || 'Chưa cập nhật danh sách nguyên liệu cụ thể.';
             modalNotes.textContent = item.farmInfo.notes || item.description || 'Không có ghi chú thêm.';
         } else {
-            modalYield.textContent = 'Tối ưu hiệu suất';
+            modalProfit.textContent = 'Tối ưu hiệu suất';
+            modalCost.textContent = 'Miễn phí';
             modalDimensions.textContent = 'Mọi kích thước';
-            modalDifficulty.textContent = 'Cài đặt dễ dàng';
-            modalMaterials.textContent = 'Cần cài đặt Fabric Loader và thư mục mods.';
             modalNotes.textContent = item.description || 'Tối ưu hóa game Minecraft.';
         }
 
