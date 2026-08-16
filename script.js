@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     let allItems = getAllResources();
-    let currentCategory = 'all';
+    let currentCategory = 'fixlag'; // Mặc định mở mục Fix Lag
     let currentVersion = 'all';
     let currentTag = 'all';
     let currentSort = 'default';
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const versionSelect = document.getElementById('filter-version');
     const versionFilterWrapper = document.getElementById('version-filter-wrapper');
     const sortSelect = document.getElementById('filter-sort');
-    const tagChips = document.querySelectorAll('#tag-chips-container .chip-btn');
+    const tagChipsContainer = document.getElementById('tag-chips-container');
     const toastContainer = document.getElementById('toast-container');
 
     // Detail Modal Elements
@@ -72,28 +72,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Cập nhật số lượng thống kê
     function updateStats() {
-        const totalCount = allItems.length;
         const fixlagCount = allItems.filter(i => i.category === 'fixlag').length;
         const litematicaCount = allItems.filter(i => i.category === 'litematica').length;
 
-        // Banner Stats
-        const statTotal = document.getElementById('stat-total');
         const statFixlag = document.getElementById('stat-fixlag');
         const statLitematica = document.getElementById('stat-litematica');
-        if (statTotal) statTotal.textContent = totalCount;
         if (statFixlag) statFixlag.textContent = fixlagCount;
         if (statLitematica) statLitematica.textContent = litematicaCount;
 
-        // Tab Badges
-        const countAll = document.getElementById('count-all');
         const countFixlag = document.getElementById('count-fixlag');
         const countLitematica = document.getElementById('count-litematica');
-        if (countAll) countAll.textContent = totalCount;
         if (countFixlag) countFixlag.textContent = fixlagCount;
         if (countLitematica) countLitematica.textContent = litematicaCount;
     }
 
-    // 3. Tự động trích xuất các phiên bản Minecraft cho mục Fix Lag
+    // 3. Tự động sinh danh sách Thẻ Tag động (Dynamic Tag Chips)
+    function renderTagChips() {
+        if (!tagChipsContainer) return;
+        tagChipsContainer.innerHTML = '';
+
+        const tags = new Set();
+        allItems.filter(i => i.category === currentCategory).forEach(item => {
+            (item.tags || []).forEach(t => {
+                if (t && t.trim() !== '') tags.add(t.trim());
+            });
+        });
+
+        // Nút "Tất cả thẻ"
+        const allBtn = document.createElement('button');
+        allBtn.className = `chip-btn ${currentTag === 'all' ? 'active' : ''}`;
+        allBtn.setAttribute('data-tag', 'all');
+        allBtn.textContent = 'Tất cả thẻ';
+        allBtn.addEventListener('click', () => {
+            currentTag = 'all';
+            updateActiveChip();
+            renderCards();
+        });
+        tagChipsContainer.appendChild(allBtn);
+
+        // Render từng nút tag
+        Array.from(tags).sort().forEach(tag => {
+            const btn = document.createElement('button');
+            btn.className = `chip-btn ${currentTag === tag ? 'active' : ''}`;
+            btn.setAttribute('data-tag', tag);
+            btn.textContent = tag;
+            btn.addEventListener('click', () => {
+                currentTag = tag;
+                updateActiveChip();
+                renderCards();
+            });
+            tagChipsContainer.appendChild(btn);
+        });
+    }
+
+    function updateActiveChip() {
+        if (!tagChipsContainer) return;
+        const chips = tagChipsContainer.querySelectorAll('.chip-btn');
+        chips.forEach(chip => {
+            if (chip.getAttribute('data-tag') === currentTag) {
+                chip.classList.add('active');
+            } else {
+                chip.classList.remove('active');
+            }
+        });
+    }
+
+    // 4. Trích xuất danh sách phiên bản Minecraft cho mục Fix Lag
     function populateVersions() {
         const versions = new Set();
         allItems.forEach(item => {
@@ -102,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Giữ lại option "all"
         versionSelect.innerHTML = '<option value="all">Tất cả phiên bản</option>';
         Array.from(versions).sort().reverse().forEach(ver => {
             const opt = document.createElement('option');
@@ -112,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 4. Lọc và Hiển Thị Danh Sách Thẻ Card
+    // 5. Lọc và Hiển Thị Danh Sách Thẻ Card
     function renderCards() {
         cardsContainer.innerHTML = '';
 
@@ -125,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let filtered = allItems.filter(item => {
             // Lọc theo thể loại (Category)
-            if (currentCategory !== 'all' && item.category !== currentCategory) {
+            if (item.category !== currentCategory) {
                 return false;
             }
 
@@ -137,9 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Lọc theo tag
             if (currentTag !== 'all') {
                 const itemTags = item.tags || [];
-                const hasTag = itemTags.some(t => t.toLowerCase().includes(currentTag.toLowerCase()));
-                const inTitleOrDesc = (item.title + ' ' + (item.description || '')).toLowerCase().includes(currentTag.toLowerCase());
-                if (!hasTag && !inTitleOrDesc) {
+                const hasTag = itemTags.some(t => t.toLowerCase() === currentTag.toLowerCase());
+                if (!hasTag) {
                     return false;
                 }
             }
@@ -190,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const tagClass = isFixlag ? 'tag-fixlag' : 'tag-litematica';
             const tagLabel = isFixlag ? 'Fix Lag FPS' : 'Litematica';
 
-            // Version badge (chỉ hiển thị đối với fixlag)
+            // Version badge
             const versionBadgeHTML = isFixlag 
                 ? `<span class="badge-version">${item.version || 'Mọi phiên bản'}</span>` 
                 : `<span class="badge-version" style="background: rgba(139, 92, 246, 0.2); border-color: var(--primary);"><i class="fa-solid fa-cubes"></i> Bản vẽ</span>`;
@@ -239,12 +281,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }
 
+            // Hiển thị tags trên card
+            let tagsHTML = '';
+            if (item.tags && item.tags.length > 0) {
+                tagsHTML = `
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px;">
+                        ${item.tags.map(t => `<span style="background: rgba(255,255,255,0.06); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; color: var(--text-sub); border: 1px solid rgba(255,255,255,0.06);"><i class="fa-solid fa-tag" style="font-size: 0.65rem; color: var(--secondary);"></i> ${t}</span>`).join('')}
+                    </div>
+                `;
+            }
+
             cardEl.innerHTML = `
                 ${imageHTML}
                 <div class="card-body">
                     <h3 class="card-title">${item.title}</h3>
                     <p class="card-desc">${item.description || 'Chưa có mô tả chi tiết cho mục này.'}</p>
                     
+                    ${tagsHTML}
                     ${farmSnippetHTML}
 
                     <div class="card-meta-bar">
@@ -292,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Modal Xem Chi Tiết Bản Vẽ
+    // 6. Modal Xem Chi Tiết Bản Vẽ
     function openDetailModal(item) {
         activeModalItem = item;
         modalTitle.textContent = item.title;
@@ -353,17 +406,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. Xử lý Tab Thể Loại
+    // 7. Xử lý Tab Thể Loại (Chuyển giữa Fix Lag và Litematica)
     categoryTabs.forEach(btn => {
         btn.addEventListener('click', () => {
             categoryTabs.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             currentCategory = btn.getAttribute('data-category');
+            currentTag = 'all'; // Reset tag filter khi đổi danh mục
+            renderTagChips();
             renderCards();
         });
     });
 
-    // 7. Xử lý Tìm Kiếm Tức Thì (Real-time Instant Search)
+    // 8. Xử lý Tìm Kiếm Tức Thì (Real-time Instant Search)
     if (searchInput) {
         searchInput.addEventListener('input', (e) => {
             searchQuery = e.target.value;
@@ -386,7 +441,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 8. Xử lý Dropdown Phiên Bản & Sắp Xếp
+    // 9. Xử lý Dropdown Phiên Bản & Sắp Xếp
     if (versionSelect) {
         versionSelect.addEventListener('change', (e) => {
             currentVersion = e.target.value;
@@ -401,22 +456,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 9. Xử lý Tag Chips
-    tagChips.forEach(chip => {
-        chip.addEventListener('click', () => {
-            tagChips.forEach(c => c.classList.remove('active'));
-            chip.classList.add('active');
-            currentTag = chip.getAttribute('data-tag');
-            renderCards();
-        });
-    });
-
     // Lắng nghe sự thay đổi dữ liệu từ tab Admin
     window.addEventListener('storage', (e) => {
         if (e.key === 'mc_custom_resources') {
             allItems = getAllResources();
             updateStats();
             populateVersions();
+            renderTagChips();
             renderCards();
         }
     });
@@ -424,5 +470,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Khởi chạy ban đầu
     updateStats();
     populateVersions();
+    renderTagChips();
     renderCards();
 });

@@ -16,7 +16,7 @@ const resourceData = [
         size: "1.2 MB",
         image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
         link: "https://link4m.org/eIbc56",
-        tags: ["Sodium", "FPS", "Fabric"]
+        tags: ["Sodium", "Tối Ưu FPS", "Fabric"]
     },
     {
         id: "fixlag-02",
@@ -27,7 +27,7 @@ const resourceData = [
         size: "1.2 MB",
         image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
         link: "https://link4m.org/HmJRHJF",
-        tags: ["Sodium", "FPS", "Fabric"]
+        tags: ["Sodium", "Tối Ưu FPS", "Fabric"]
     },
     {
         id: "fixlag-03",
@@ -38,7 +38,7 @@ const resourceData = [
         size: "1.2 MB",
         image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
         link: "https://link4m.org/UJytmJ",
-        tags: ["Sodium", "FPS", "Fabric"]
+        tags: ["Sodium", "Tối Ưu FPS", "Fabric"]
     },
     {
         id: "fixlag-04",
@@ -49,7 +49,7 @@ const resourceData = [
         size: "1.2 MB",
         image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
         link: "https://link4m.org/l2ccnA4r",
-        tags: ["Sodium", "FPS", "Fabric"]
+        tags: ["Sodium", "Tối Ưu FPS", "Fabric"]
     },
     {
         id: "fixlag-05",
@@ -60,7 +60,7 @@ const resourceData = [
         size: "1.2 MB",
         image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
         link: "https://link4m.net/wU5TZ",
-        tags: ["Sodium", "FPS", "Fabric"]
+        tags: ["Sodium", "Tối Ưu FPS", "Fabric"]
     },
     {
         id: "fixlag-06",
@@ -71,7 +71,7 @@ const resourceData = [
         size: "1.2 MB",
         image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
         link: "https://link4m.net/8K5Yei",
-        tags: ["Sodium", "FPS", "Fabric"]
+        tags: ["Sodium", "Tối Ưu FPS", "Fabric"]
     },
     {
         id: "fixlag-07",
@@ -82,7 +82,7 @@ const resourceData = [
         size: "1.2 MB",
         image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
         link: "https://link4m.net/pLmQicmy",
-        tags: ["Sodium", "FPS", "Fabric"]
+        tags: ["Sodium", "Tối Ưu FPS", "Fabric"]
     },
     {
         id: "fixlag-08",
@@ -93,7 +93,7 @@ const resourceData = [
         size: "1.2 MB",
         image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
         link: "https://link4m.org/zF8Tpc90",
-        tags: ["Sodium", "FPS", "Fabric"]
+        tags: ["Sodium", "Tối Ưu FPS", "Fabric"]
     },
     {
         id: "fixlag-09",
@@ -104,7 +104,7 @@ const resourceData = [
         size: "1.2 MB",
         image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
         link: "https://link4m.org/XuKaHs",
-        tags: ["Sodium", "FPS", "Fabric"]
+        tags: ["Sodium", "Tối Ưu FPS", "Fabric"]
     },
     {
         id: "fixlag-10",
@@ -115,7 +115,7 @@ const resourceData = [
         size: "1.2 MB",
         image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
         link: "https://link4m.net/vwh3J",
-        tags: ["Sodium", "FPS", "Fabric"]
+        tags: ["Sodium", "Tối Ưu FPS", "Fabric"]
     },
     {
         id: "fixlag-11",
@@ -126,7 +126,7 @@ const resourceData = [
         size: "1.2 MB",
         image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
         link: "https://link4m.net/CI0tKPH",
-        tags: ["Sodium", "FPS", "Fabric"]
+        tags: ["Sodium", "Tối Ưu FPS", "Fabric"]
     },
     {
         id: "fixlag-12",
@@ -137,7 +137,7 @@ const resourceData = [
         size: "1.2 MB",
         image: "https://media.forgecdn.net/attachments/1794/594/1778245-png.png",
         link: "https://link4m.org/WeshKI",
-        tags: ["Sodium", "FPS", "Fabric"]
+        tags: ["Sodium", "Tối Ưu FPS", "Fabric"]
     },
 
     // ==========================================
@@ -151,7 +151,7 @@ const resourceData = [
         size: "17.22 KB",
         image: "https://i.postimg.cc/44t7ZKfQ/image.png",
         link: "https://link4m.net/gDGkjV",
-        tags: ["Farm Đá", "DonutSMP", "TNT"],
+        tags: ["Farm Đá", "DonutSMP", "TNT Duper"],
         farmInfo: {
             profit: "1.000.000 Đá / Giờ",
             cost: "Rất thấp (TNT Duper tự động)",
@@ -167,7 +167,7 @@ const resourceData = [
         size: "2.14 KB",
         image: "https://i.postimg.cc/zvjqvY2t/2026-07-23-09-54-47.png",
         link: "https://link4m.net/4cFPnmMw",
-        tags: ["Farm Đá", "Compact", "Early Game"],
+        tags: ["Farm Đá", "Compact"],
         farmInfo: {
             profit: "120.000 Đá / Giờ",
             cost: "0đ (Miễn phí hoàn toàn)",
@@ -183,7 +183,7 @@ const resourceData = [
         size: "2.96 KB",
         image: "https://i.postimg.cc/Wp6NX0pG/2026-07-23-09-48-04.png",
         link: "https://link4m.org/M0b9Wxd",
-        tags: ["Farm Đá", "Wither", "No-TNT"],
+        tags: ["Farm Đá", "Wither"],
         farmInfo: {
             profit: "50.000 Đá / Giờ",
             cost: "0đ (Không tốn TNT duy trì)",
@@ -199,7 +199,7 @@ const resourceData = [
         size: "2.96 KB",
         image: "https://i.postimg.cc/yxP7xCpT/area-render-3.png",
         link: "https://link4m.org/zHTectd5",
-        tags: ["Farm Đá", "High Yield", "TNT Duper"],
+        tags: ["Farm Đá", "TNT Duper"],
         farmInfo: {
             profit: "2.100.000 Đá / Giờ (225 Đá/TNT)",
             cost: "9.230 TNT / Giờ",
@@ -215,7 +215,7 @@ const resourceData = [
         size: "2.96 KB",
         image: "https://i.postimg.cc/7hDxqZ99/cobblestone-v2.png",
         link: "https://link4m.org/GJv2Asx",
-        tags: ["Farm Đá", "Ultra Fast", "TNT Duper"],
+        tags: ["Farm Đá", "TNT Duper"],
         farmInfo: {
             profit: "4.400.000 Đá / Giờ (150 Đá/TNT)",
             cost: "28.000 TNT / Giờ",
@@ -231,7 +231,7 @@ const resourceData = [
         size: "2.96 KB",
         image: "https://i.postimg.cc/X7sy1RNt/image.png",
         link: "https://link4m.net/O1l4boDW",
-        tags: ["Farm Đá", "Beginner", "Full Base"],
+        tags: ["Farm Đá", "Full Base"],
         farmInfo: {
             profit: "300.000 Đá / Giờ (125 Đá/TNT)",
             cost: "2.400 TNT / Giờ",
@@ -247,7 +247,7 @@ const resourceData = [
         size: "2.96 KB",
         image: "https://i.postimg.cc/nrZHnh2K/cobblestone-v1.png",
         link: "https://link4m.net/91FTg83",
-        tags: ["Farm Đá", "Standard", "TNT"],
+        tags: ["Farm Đá", "Standard"],
         farmInfo: {
             profit: "1.100.000 Đá / Giờ (150 Đá/TNT)",
             cost: "7.000 TNT / Giờ",
@@ -263,7 +263,7 @@ const resourceData = [
         size: "2.96 KB",
         image: "",
         link: "https://link4m.net/wU5TZ",
-        tags: ["Farm Kelp", "Nhiên Liệu", "Tự Động"],
+        tags: ["Farm Tảo Bẹ", "Tự Động"],
         farmInfo: {
             profit: "80.000 Kelp / Giờ",
             cost: "0đ (Hoàn toàn tự động)",
@@ -274,12 +274,12 @@ const resourceData = [
     {
         id: "lite-09",
         category: "litematica",
-        title: "Farm Sắt Tối Ưu Early Game",
+        title: "Farm Sắt Tối Ưu",
         description: "Trang trại sắt tự động hoạt động ổn định 24/7 không tốn chi phí duy trì.",
         size: "3.50 KB",
         image: "",
         link: "https://link4m.org/eIbc56",
-        tags: ["Farm Sắt", "Dân Làng", "Early Game"],
+        tags: ["Farm Sắt", "Dân Làng"],
         farmInfo: {
             profit: "1.200 Thỏi Sắt / Giờ",
             cost: "0đ (Không tốn nguyên liệu)",
@@ -295,7 +295,7 @@ const resourceData = [
         size: "450 KB",
         image: "",
         link: "https://link4m.org/HmJRHJF",
-        tags: ["Farm Vàng", "XP", "Nether"],
+        tags: ["Farm Vàng", "XP Nether"],
         farmInfo: {
             profit: "180 Khối Vàng / Giờ + XP Vô Hạn",
             cost: "0đ (Chỉ cần đứng AFK)",

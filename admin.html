@@ -117,7 +117,7 @@
                             <th style="width: 70px;">Ảnh</th>
                             <th>Tên Tài Nguyên</th>
                             <th>Thể Loại</th>
-                            <th>Phiên Bản / Dạng File</th>
+                            <th>Thẻ Tags Gắn Kèm</th>
                             <th>Lợi Nhuận / Thông Số</th>
                             <th>Link Rút Gọn</th>
                             <th style="text-align: right; width: 140px;">Thao Tác</th>
@@ -243,6 +243,15 @@
                     <div class="form-group" id="form-group-size">
                         <label class="form-label" for="item-size">Dung lượng file</label>
                         <input type="text" id="item-size" class="form-input" placeholder="VD: 2.96 KB, 1.2 MB...">
+                    </div>
+
+                    <!-- Tags (TẠO THẺ & GẮN THẺ TÙY Ý) -->
+                    <div class="form-group-full">
+                        <label class="form-label" for="item-tags">
+                            🏷️ Thẻ Phân Loại (Tags) <span style="color:var(--text-muted);font-size:0.8rem;">(Nhập các thẻ cách nhau bằng dấu phẩy)</span>
+                        </label>
+                        <input type="text" id="item-tags" class="form-input" placeholder="VD: Farm Đá, TNT Duper, DonutSMP hoặc Sodium, Tối Ưu FPS...">
+                        <div id="suggested-tags-container" style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px;"></div>
                     </div>
 
                     <!-- Image Link -->

@@ -50,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemTitle = document.getElementById('item-title');
     const itemVersion = document.getElementById('item-version');
     const itemSize = document.getElementById('item-size');
+    const itemTags = document.getElementById('item-tags');
+    const suggestedTagsContainer = document.getElementById('suggested-tags-container');
     const itemImage = document.getElementById('item-image');
     const itemLink = document.getElementById('item-link');
     const itemDesc = document.getElementById('item-desc');
@@ -198,10 +200,59 @@ document.addEventListener('DOMContentLoaded', () => {
             if (formGroupVersion) formGroupVersion.style.display = 'none';
             farmInfoSection.style.display = 'block';
         }
+        renderSuggestedTags();
     }
 
     btnCatFixlag.addEventListener('click', () => setCategory('fixlag'));
     btnCatLitematica.addEventListener('click', () => setCategory('litematica'));
+
+    // Gợi ý thẻ tags đã có sẵn trong hệ thống
+    function renderSuggestedTags() {
+        if (!suggestedTagsContainer) return;
+        suggestedTagsContainer.innerHTML = '';
+
+        const tags = new Set();
+        currentItems.filter(i => i.category === selectedCategory).forEach(i => {
+            (i.tags || []).forEach(t => {
+                if (t && t.trim() !== '') tags.add(t.trim());
+            });
+        });
+
+        if (tags.size === 0) {
+            // Mặc định gợi ý mẫu
+            if (selectedCategory === 'fixlag') {
+                ['Sodium', 'Tối Ưu FPS', 'Fabric', 'Iris Shader'].forEach(t => tags.add(t));
+            } else {
+                ['Farm Đá', 'Farm Sắt', 'Farm Vàng', 'Farm Tảo Bẹ', 'TNT Duper'].forEach(t => tags.add(t));
+            }
+        }
+
+        const label = document.createElement('span');
+        label.style.fontSize = '0.75rem';
+        label.style.color = 'var(--text-muted)';
+        label.textContent = 'Gợi ý bấm nhanh:';
+        suggestedTagsContainer.appendChild(label);
+
+        Array.from(tags).forEach(tag => {
+            const chip = document.createElement('span');
+            chip.style.cursor = 'pointer';
+            chip.style.background = 'rgba(255,255,255,0.06)';
+            chip.style.border = '1px solid rgba(255,255,255,0.1)';
+            chip.style.padding = '2px 8px';
+            chip.style.borderRadius = '4px';
+            chip.style.fontSize = '0.75rem';
+            chip.style.color = 'var(--secondary)';
+            chip.textContent = `+ ${tag}`;
+            chip.addEventListener('click', () => {
+                const currentVals = itemTags.value.split(',').map(s => s.trim()).filter(s => s !== '');
+                if (!currentVals.includes(tag)) {
+                    currentVals.push(tag);
+                    itemTags.value = currentVals.join(', ');
+                }
+            });
+            suggestedTagsContainer.appendChild(chip);
+        });
+    }
 
     // =========================================================
     // 6. RENDER BẢNG QUẢN LÝ TÀI NGUYÊN
@@ -227,7 +278,8 @@ document.addEventListener('DOMContentLoaded', () => {
             filtered = currentItems.filter(i => 
                 (i.title && i.title.toLowerCase().includes(q)) ||
                 (i.category && i.category.toLowerCase().includes(q)) ||
-                (i.link && i.link.toLowerCase().includes(q))
+                (i.link && i.link.toLowerCase().includes(q)) ||
+                ((i.tags || []).some(t => t.toLowerCase().includes(q)))
             );
         }
 
@@ -253,11 +305,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? `<img src="${item.image}" alt="" style="width:48px;height:48px;border-radius:8px;object-fit:cover;" onerror="this.src='https://placehold.co/48x48/1e293b/white?text=MC'">`
                 : `<div style="width:48px;height:48px;border-radius:8px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;"><i class="${isFixlag ? 'fa-solid fa-gauge-high' : 'fa-solid fa-cubes'}" style="color:var(--text-muted);"></i></div>`;
 
-            const versionText = isFixlag ? `<code>${item.version || '1.21+'}</code>` : `<span style="color:var(--primary);font-size:0.85rem;"><i class="fa-solid fa-infinity"></i> Mọi bản</span>`;
+            // Tags display
+            const tagsHtml = (item.tags && item.tags.length > 0)
+                ? item.tags.map(t => `<span style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;font-size:0.75rem;color:var(--secondary);margin-right:4px;">#${t}</span>`).join('')
+                : `<span style="color:var(--text-muted);font-size:0.8rem;">Chưa gắn thẻ</span>`;
 
             const infoText = item.farmInfo && item.farmInfo.profit 
                 ? `<div><span style="color:var(--emerald);font-weight:700;">${item.farmInfo.profit}</span>${item.farmInfo.cost ? `<div style="color:var(--amber);font-size:0.78rem;">Vốn: ${item.farmInfo.cost}</div>` : ''}</div>` 
-                : `<span style="color:var(--text-muted);">${item.size || 'Mặc định'}</span>`;
+                : `<span style="color:var(--text-muted);">${item.size || (item.version ? `Bản ${item.version}` : 'Mặc định')}</span>`;
 
             tr.innerHTML = `
                 <td>${imgHtml}</td>
@@ -267,7 +322,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>
                     <span class="badge-tag ${badgeClass}">${badgeText}</span>
                 </td>
-                <td>${versionText}</td>
+                <td>
+                    <div style="display:flex;flex-wrap:wrap;gap:4px;">${tagsHtml}</div>
+                </td>
                 <td>${infoText}</td>
                 <td>
                     <a href="${item.link}" target="_blank" style="color:var(--secondary);font-size:0.85rem;text-decoration:none;display:inline-flex;align-items:center;gap:4px;">
@@ -322,6 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
         itemIdInput.value = '';
         resourceForm.reset();
         setCategory('fixlag');
+        renderSuggestedTags();
         resourceModal.classList.add('active');
     }
 
@@ -333,6 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
         itemTitle.value = item.title || '';
         itemVersion.value = item.version || '';
         itemSize.value = item.size || '';
+        itemTags.value = (item.tags || []).join(', ');
         itemImage.value = item.image || '';
         itemLink.value = item.link || '';
         itemDesc.value = item.description || '';
@@ -349,6 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
             farmNotes.value = '';
         }
 
+        renderSuggestedTags();
         resourceModal.classList.add('active');
     }
 
@@ -372,6 +432,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const link = itemLink.value.trim();
         const description = itemDesc.value.trim();
 
+        // Tách danh sách tags từ input
+        const tags = itemTags.value
+            .split(',')
+            .map(t => t.trim())
+            .filter(t => t !== '');
+
         let farmInfo = null;
         if (selectedCategory === 'litematica') {
             farmInfo = {
@@ -390,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
             size,
             image,
             link,
-            tags: selectedCategory === 'fixlag' ? ['Sodium', 'FPS'] : ['Farm', title.split(' ')[0] || 'Litematica']
+            tags: tags.length > 0 ? tags : [title.split(' ')[0] || 'Minecraft']
         };
 
         if (selectedCategory === 'fixlag' && version) {
@@ -558,7 +624,7 @@ if (typeof module !== 'undefined' && module.exports) {
 
             // Bước 2: Gửi request PUT để tạo commit mới
             const payload = {
-                message: `Cập nhật Lợi nhuận & Vốn vận hành từ Admin Hub [${new Date().toLocaleString('vi-VN')}]`,
+                message: `Cập nhật thẻ tags & dữ liệu Resource Hub [${new Date().toLocaleString('vi-VN')}]`,
                 content: contentBase64,
                 branch: branch
             };

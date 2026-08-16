@@ -35,10 +35,6 @@
             <!-- Live Stats Banner -->
             <div class="stats-banner">
                 <div class="stat-pill">
-                    <i class="fa-solid fa-box-archive"></i>
-                    <span>Tổng tài nguyên: <strong id="stat-total">0</strong></span>
-                </div>
-                <div class="stat-pill">
                     <i class="fa-solid fa-bolt"></i>
                     <span>Fix Lag: <strong id="stat-fixlag">0</strong></span>
                 </div>
@@ -54,20 +50,15 @@
             <!-- Search Bar -->
             <div class="search-wrapper">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm theo tên máy farm, mod Sodium, lợi nhuận, vốn vận hành...">
+                <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm theo tên file, mod Sodium, thẻ tag, lợi nhuận...">
                 <button type="button" id="btn-clear-search" class="btn-clear-search" title="Xóa tìm kiếm">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
-            <!-- Category Tabs -->
+            <!-- Category Tabs (Chỉ 2 Tab chính: Fix Lag & Litematica) -->
             <nav class="nav-tabs" id="category-tabs">
-                <button class="tab-btn active" data-category="all">
-                    <i class="fa-solid fa-grid-2"></i>
-                    <span>Tất Cả</span>
-                    <span class="badge" id="count-all">0</span>
-                </button>
-                <button class="tab-btn" data-category="fixlag">
+                <button class="tab-btn active" data-category="fixlag">
                     <i class="fa-solid fa-bolt"></i>
                     <span>Fix Lag (FPS)</span>
                     <span class="badge" id="count-fixlag">0</span>
@@ -82,7 +73,7 @@
             <!-- Filter Sub-bar -->
             <div class="filter-sub-bar">
                 <div class="filter-dropdowns">
-                    <!-- Version Filter (Tự động hiển thị khi chọn Fix Lag hoặc Tất cả) -->
+                    <!-- Version Filter (Chỉ hiển thị khi ở tab Fix Lag) -->
                     <div class="custom-select-wrapper" id="version-filter-wrapper">
                         <i class="fa-solid fa-code-branch"></i>
                         <select id="filter-version" title="Lọc theo phiên bản">
@@ -101,15 +92,8 @@
                     </div>
                 </div>
 
-                <!-- Quick Tag Filter Chips -->
-                <div class="tag-chips" id="tag-chips-container">
-                    <button class="chip-btn active" data-tag="all">Tất cả thẻ</button>
-                    <button class="chip-btn" data-tag="Farm Đá">Farm Đá</button>
-                    <button class="chip-btn" data-tag="Farm Sắt">Farm Sắt</button>
-                    <button class="chip-btn" data-tag="Farm Vàng">Farm Vàng</button>
-                    <button class="chip-btn" data-tag="Farm Kelp">Farm Kelp</button>
-                    <button class="chip-btn" data-tag="Sodium">Sodium FPS</button>
-                </div>
+                <!-- Dynamic Tag Filter Chips (Tự động tải theo danh mục và tag bạn tạo) -->
+                <div class="tag-chips" id="tag-chips-container"></div>
             </div>
         </section>
 
