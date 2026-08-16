@@ -54,7 +54,7 @@
             <!-- Search Bar -->
             <div class="search-wrapper">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm theo tên máy farm, mod Sodium, phiên bản 1.21, nguyên liệu...">
+                <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm theo tên máy farm, mod Sodium, lợi nhuận, vốn vận hành...">
                 <button type="button" id="btn-clear-search" class="btn-clear-search" title="Xóa tìm kiếm">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
@@ -82,8 +82,8 @@
             <!-- Filter Sub-bar -->
             <div class="filter-sub-bar">
                 <div class="filter-dropdowns">
-                    <!-- Version Filter -->
-                    <div class="custom-select-wrapper">
+                    <!-- Version Filter (Tự động hiển thị khi chọn Fix Lag hoặc Tất cả) -->
+                    <div class="custom-select-wrapper" id="version-filter-wrapper">
                         <i class="fa-solid fa-code-branch"></i>
                         <select id="filter-version" title="Lọc theo phiên bản">
                             <option value="all">Tất cả phiên bản</option>
@@ -135,7 +135,7 @@
     <div class="modal-overlay" id="detail-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" id="modal-title">Chi Tiết Bản Vẽ</h2>
+                <h2 class="modal-title" id="modal-title">Chi Tiết Bản Vẽ Litematica</h2>
                 <button type="button" class="btn-close-modal" id="btn-close-detail-modal" title="Đóng">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
@@ -147,27 +147,18 @@
 
                 <div class="modal-specs-table" id="modal-specs-table">
                     <div class="modal-spec-card">
-                        <div class="label"><i class="fa-solid fa-gauge-high"></i> Năng suất</div>
-                        <div class="value" id="modal-yield">Đang cập nhật</div>
+                        <div class="label"><i class="fa-solid fa-chart-line"></i> Lợi nhuận của máy</div>
+                        <div class="value" id="modal-profit" style="color: var(--emerald);">Đang cập nhật</div>
                     </div>
                     <div class="modal-spec-card">
-                        <div class="label"><i class="fa-solid fa-ruler-combined"></i> Kích thước</div>
+                        <div class="label"><i class="fa-solid fa-coins"></i> Vốn để vận hành</div>
+                        <div class="value" id="modal-cost" style="color: var(--amber);">Đang cập nhật</div>
+                    </div>
+                    <div class="modal-spec-card" style="grid-column: 1 / -1;">
+                        <div class="label"><i class="fa-solid fa-ruler-combined"></i> Kích thước máy</div>
                         <div class="value" id="modal-dimensions">Đang cập nhật</div>
                     </div>
-                    <div class="modal-spec-card">
-                        <div class="label"><i class="fa-solid fa-shield-halved"></i> Độ khó</div>
-                        <div class="value" id="modal-difficulty">Trung bình</div>
-                    </div>
-                    <div class="modal-spec-card">
-                        <div class="label"><i class="fa-solid fa-code-branch"></i> Phiên bản</div>
-                        <div class="value" id="modal-version">1.21+</div>
-                    </div>
                 </div>
-
-                <div class="modal-section-title">
-                    <i class="fa-solid fa-boxes-stacked"></i> Nguyên liệu chính cần chuẩn bị
-                </div>
-                <div class="modal-text-block" id="modal-materials">Đang cập nhật</div>
 
                 <div class="modal-section-title">
                     <i class="fa-solid fa-circle-info"></i> Hướng dẫn & Lưu ý vận hành
