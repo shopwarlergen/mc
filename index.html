@@ -3,61 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Resource Hub - Fix Lag & Litematica</title>
-    <!-- Font & Icons -->
+    <title>Minecraft Resource Hub - Tải File Fix Lag & Bản Vẽ Litematica</title>
+    <meta name="description" content="Kho chia sẻ mod tối ưu FPS Sodium, Iris và bản vẽ máy farm Litematica độc quyền cho cộng đồng Minecraft Việt Nam.">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Background Glow Elements -->
+    <!-- Ambient Background Lights -->
     <div class="bg-glow glow-1"></div>
     <div class="bg-glow glow-2"></div>
+    <div class="bg-glow glow-3"></div>
 
     <div class="container">
-        <!-- Header -->
+        <!-- Site Header -->
         <header class="site-header">
             <div class="logo-wrapper">
                 <i class="fa-solid fa-cubes-stacked logo-icon"></i>
-                <h1 class="site-title">MINECRAFT <span class="gradient-text">HUB</span></h1>
+                <h1 class="site-title">MINECRAFT <span class="gradient-text">RESOURCE HUB</span></h1>
             </div>
-            <p class="site-subtitle">Kho chia sẻ file Fix Lag mượt mà & Bản vẽ Litematica độc quyền</p>
+            <p class="site-subtitle">Kho tải mod Fix Lag mượt mà & Bản vẽ Litematica công trình / máy farm chất lượng cao</p>
+            
+            <!-- Live Stats Banner -->
+            <div class="stats-banner">
+                <div class="stat-pill">
+                    <i class="fa-solid fa-box-archive"></i>
+                    <span>Tổng tài nguyên: <strong id="stat-total">0</strong></span>
+                </div>
+                <div class="stat-pill">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Fix Lag: <strong id="stat-fixlag">0</strong></span>
+                </div>
+                <div class="stat-pill">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Litematica: <strong id="stat-litematica">0</strong></span>
+                </div>
+            </div>
         </header>
 
-        <!-- Navigation Tabs -->
-        <nav class="nav-tabs">
-            <button class="tab-btn active" data-category="fixlag">
-                <i class="fa-solid fa-bolt tab-icon"></i>
-                <span>Fix Lag</span>
-                <span class="badge" id="count-fixlag">0</span>
-            </button>
-            <button class="tab-btn" data-category="litematica">
-                <i class="fa-solid fa-layer-group tab-icon"></i>
-                <span>Litematica</span>
-                <span class="badge" id="count-litematica">0</span>
-            </button>
-        </nav>
+        <!-- Search & Advanced Filter Section -->
+        <section class="filter-control-panel">
+            <!-- Search Bar -->
+            <div class="search-wrapper">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="search-input" class="search-input" placeholder="Tìm kiếm theo tên máy farm, mod Sodium, phiên bản 1.21, nguyên liệu...">
+                <button type="button" id="btn-clear-search" class="btn-clear-search" title="Xóa tìm kiếm">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
 
-        <!-- Content Grid -->
+            <!-- Category Tabs -->
+            <nav class="nav-tabs" id="category-tabs">
+                <button class="tab-btn active" data-category="all">
+                    <i class="fa-solid fa-grid-2"></i>
+                    <span>Tất Cả</span>
+                    <span class="badge" id="count-all">0</span>
+                </button>
+                <button class="tab-btn" data-category="fixlag">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Fix Lag (FPS)</span>
+                    <span class="badge" id="count-fixlag">0</span>
+                </button>
+                <button class="tab-btn" data-category="litematica">
+                    <i class="fa-solid fa-cubes"></i>
+                    <span>Bản Vẽ Litematica</span>
+                    <span class="badge" id="count-litematica">0</span>
+                </button>
+            </nav>
+
+            <!-- Filter Sub-bar -->
+            <div class="filter-sub-bar">
+                <div class="filter-dropdowns">
+                    <!-- Version Filter -->
+                    <div class="custom-select-wrapper">
+                        <i class="fa-solid fa-code-branch"></i>
+                        <select id="filter-version" title="Lọc theo phiên bản">
+                            <option value="all">Tất cả phiên bản</option>
+                        </select>
+                    </div>
+
+                    <!-- Sort Options -->
+                    <div class="custom-select-wrapper">
+                        <i class="fa-solid fa-arrow-down-wide-short"></i>
+                        <select id="filter-sort" title="Sắp xếp danh sách">
+                            <option value="default">Mặc định</option>
+                            <option value="name-asc">Tên (A - Z)</option>
+                            <option value="name-desc">Tên (Z - A)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Quick Tag Filter Chips -->
+                <div class="tag-chips" id="tag-chips-container">
+                    <button class="chip-btn active" data-tag="all">Tất cả thẻ</button>
+                    <button class="chip-btn" data-tag="Farm Đá">Farm Đá</button>
+                    <button class="chip-btn" data-tag="Farm Sắt">Farm Sắt</button>
+                    <button class="chip-btn" data-tag="Farm Vàng">Farm Vàng</button>
+                    <button class="chip-btn" data-tag="Farm Kelp">Farm Kelp</button>
+                    <button class="chip-btn" data-tag="Sodium">Sodium FPS</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Cards Grid -->
         <main class="content-section">
             <div class="cards-grid" id="cards-container"></div>
             
             <!-- Empty State -->
             <div class="empty-state hidden" id="empty-state">
                 <i class="fa-regular fa-folder-open empty-icon"></i>
-                <p>Chưa có file nào trong mục này!</p>
+                <h3>Không tìm thấy tài nguyên phù hợp!</h3>
+                <p>Hãy thử tìm kiếm với từ khóa khác hoặc xóa bộ lọc để xem toàn bộ danh sách.</p>
             </div>
         </main>
 
         <!-- Footer -->
         <footer class="site-footer">
-            <p>© 2026 Minecraft Resource Hub. Hosted on <span class="highlight">Vercel</span></p>
+            <p>© 2026 Minecraft Resource Hub. Tối ưu trải nghiệm chơi Minecraft đỉnh cao.</p>
         </footer>
     </div>
 
-    <!-- Modular Scripts -->
+    <!-- Schematic Detail Modal (Popup) -->
+    <div class="modal-overlay" id="detail-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title">Chi Tiết Bản Vẽ</h2>
+                <button type="button" class="btn-close-modal" id="btn-close-detail-modal" title="Đóng">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-image-wrapper" id="modal-image-container">
+                    <img id="modal-img" src="" alt="Schematic Preview">
+                </div>
+
+                <div class="modal-specs-table" id="modal-specs-table">
+                    <div class="modal-spec-card">
+                        <div class="label"><i class="fa-solid fa-gauge-high"></i> Năng suất</div>
+                        <div class="value" id="modal-yield">Đang cập nhật</div>
+                    </div>
+                    <div class="modal-spec-card">
+                        <div class="label"><i class="fa-solid fa-ruler-combined"></i> Kích thước</div>
+                        <div class="value" id="modal-dimensions">Đang cập nhật</div>
+                    </div>
+                    <div class="modal-spec-card">
+                        <div class="label"><i class="fa-solid fa-shield-halved"></i> Độ khó</div>
+                        <div class="value" id="modal-difficulty">Trung bình</div>
+                    </div>
+                    <div class="modal-spec-card">
+                        <div class="label"><i class="fa-solid fa-code-branch"></i> Phiên bản</div>
+                        <div class="value" id="modal-version">1.21+</div>
+                    </div>
+                </div>
+
+                <div class="modal-section-title">
+                    <i class="fa-solid fa-boxes-stacked"></i> Nguyên liệu chính cần chuẩn bị
+                </div>
+                <div class="modal-text-block" id="modal-materials">Đang cập nhật</div>
+
+                <div class="modal-section-title">
+                    <i class="fa-solid fa-circle-info"></i> Hướng dẫn & Lưu ý vận hành
+                </div>
+                <div class="modal-text-block" id="modal-notes">Đang cập nhật</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-detail" id="btn-copy-modal-link">
+                    <i class="fa-solid fa-share-nodes"></i> Sao chép link
+                </button>
+                <a href="#" target="_self" class="btn-download" id="modal-download-btn">
+                    <i class="fa-solid fa-download"></i> Tải Bản Vẽ Ngay
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Scripts -->
     <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
