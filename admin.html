@@ -117,8 +117,8 @@
                             <th style="width: 70px;">Ảnh</th>
                             <th>Tên Tài Nguyên</th>
                             <th>Thể Loại</th>
-                            <th>Phiên Bản</th>
-                            <th>Năng Suất / Thông Số</th>
+                            <th>Phiên Bản / Dạng File</th>
+                            <th>Lợi Nhuận / Thông Số</th>
                             <th>Link Rút Gọn</th>
                             <th style="text-align: right; width: 140px;">Thao Tác</th>
                         </tr>
@@ -196,19 +196,6 @@
                         <i class="fa-solid fa-rocket"></i> Đẩy Toàn Bộ Dữ Liệu Lên GitHub Ngay
                     </button>
                 </div>
-
-                <!-- Step-by-step instructions -->
-                <div style="background: rgba(7, 10, 18, 0.6); border: 1px solid rgba(255, 255, 255, 0.06); padding: 18px; border-radius: var(--radius-md); margin-top: 26px;">
-                    <h4 style="font-size: 0.95rem; color: var(--emerald); margin-bottom: 8px;">
-                        <i class="fa-solid fa-circle-question"></i> Hướng dẫn tạo GitHub Token (Chỉ mất 1 phút):
-                    </h4>
-                    <ol style="color: var(--text-sub); font-size: 0.88rem; line-height: 1.8; padding-left: 20px;">
-                        <li>Truy cập vào <a href="https://github.com/settings/tokens" target="_blank" style="color: var(--secondary); text-decoration: underline;">github.com/settings/tokens</a> (chọn Tokens classic).</li>
-                        <li>Bấm nút <strong>Generate new token (classic)</strong>.</li>
-                        <li>Đặt tên gợi nhớ (ví dụ: <code>mc-web-sync</code>), tích chọn quyền <strong>repo</strong> (toàn bộ quyền repository).</li>
-                        <li>Bấm <strong>Generate token</strong> ở cuối trang, copy mã token dạng <code>ghp_...</code> và dán vào ô bên trên.</li>
-                    </ol>
-                </div>
             </div>
         </section>
     </div>
@@ -243,18 +230,18 @@
                     <!-- Title -->
                     <div class="form-group-full">
                         <label class="form-label" for="item-title">Tiêu đề / Tên file <span class="required">*</span></label>
-                        <input type="text" id="item-title" class="form-input" placeholder="VD: Sodium Tối Ưu FPS hoặc Farm Đá 1M/h..." required>
+                        <input type="text" id="item-title" class="form-input" placeholder="VD: Sodium Tối Ưu FPS hoặc Farm Đá DonutSMP..." required>
                     </div>
 
-                    <!-- Version -->
-                    <div class="form-group">
+                    <!-- Version (Chỉ hiện khi là Fix Lag) -->
+                    <div class="form-group" id="form-group-version">
                         <label class="form-label" for="item-version">Phiên bản Minecraft <span class="required">*</span></label>
-                        <input type="text" id="item-version" class="form-input" placeholder="VD: 1.21.4, 1.21+, 1.20..." required>
+                        <input type="text" id="item-version" class="form-input" placeholder="VD: 1.21.4, 1.21+, 1.20...">
                     </div>
 
                     <!-- Size -->
-                    <div class="form-group">
-                        <label class="form-label" for="item-size">Dung lượng (tùy chọn)</label>
+                    <div class="form-group" id="form-group-size">
+                        <label class="form-label" for="item-size">Dung lượng file</label>
                         <input type="text" id="item-size" class="form-input" placeholder="VD: 2.96 KB, 1.2 MB...">
                     </div>
 
@@ -280,33 +267,24 @@
                 <!-- KHỐI THÔNG SỐ MÁY FARM (CHỈ HIỆN KHI CHỌN LITEMATICA) -->
                 <div id="farm-info-section" style="display: none; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px; margin-top: 10px;">
                     <h3 style="font-size: 1rem; color: var(--primary); margin-bottom: 14px;">
-                        <i class="fa-solid fa-gears"></i> Thông Số Máy Farm Chi Tiết (Litematica)
+                        <i class="fa-solid fa-coins"></i> Lợi Nhuận & Vốn Vận Hành (Litematica)
                     </h3>
                     
                     <div class="form-grid">
                         <div class="form-group">
-                            <label class="form-label" for="farm-yield">Năng suất (Yield)</label>
-                            <input type="text" id="farm-yield" class="form-input" placeholder="VD: 1.200.000 Đá / Giờ, 1.200 Sắt / Giờ...">
+                            <label class="form-label" for="farm-profit">📈 Lợi nhuận của máy</label>
+                            <input type="text" id="farm-profit" class="form-input" placeholder="VD: 1.200.000 Đá / Giờ, 180 Khối Vàng + XP...">
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="farm-dimensions">Kích thước (Dimensions)</label>
-                            <input type="text" id="farm-dimensions" class="form-input" placeholder="VD: 24 x 24 x 18 Blocks...">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="farm-difficulty">Độ khó xây dựng</label>
-                            <select id="farm-difficulty" class="form-input">
-                                <option value="Dễ xây (Early Game)">Dễ xây (Early Game)</option>
-                                <option value="Trung bình" selected>Trung bình</option>
-                                <option value="Khó (Chuyên nghiệp)">Khó (Chuyên nghiệp)</option>
-                                <option value="Rất Khó (Nether / End)">Rất Khó (Nether / End)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="farm-materials">Nguyên liệu chính</label>
-                            <input type="text" id="farm-materials" class="form-input" placeholder="VD: Piston, TNT Duper, Nước, Dân làng...">
+                            <label class="form-label" for="farm-cost">💰 Vốn để vận hành</label>
+                            <input type="text" id="farm-cost" class="form-input" placeholder="VD: 9.230 TNT / Giờ hoặc 0đ (Miễn phí)...">
                         </div>
                         <div class="form-group-full">
-                            <label class="form-label" for="farm-notes">Lưu ý & Hướng dẫn vận hành</label>
+                            <label class="form-label" for="farm-dimensions">📏 Kích thước máy (Dimensions)</label>
+                            <input type="text" id="farm-dimensions" class="form-input" placeholder="VD: 24 x 24 x 18 Blocks...">
+                        </div>
+                        <div class="form-group-full">
+                            <label class="form-label" for="farm-notes">📝 Lưu ý & Hướng dẫn vận hành</label>
                             <textarea id="farm-notes" class="form-textarea" placeholder="Ghi chú khi bật máy, lưu ý bẫy Wither, hoặc hướng dẫn nạp TNT..."></textarea>
                         </div>
                     </div>
