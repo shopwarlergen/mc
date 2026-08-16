@@ -3,6 +3,8 @@
    Minecraft Resource Hub
    ========================================================= */
 
+const STORAGE_KEY = 'mc_resource_hub_v3';
+
 document.addEventListener('DOMContentLoaded', () => {
     const SECRET_PASSCODE = 'kietgottop2';
 
@@ -140,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================
     function getResources() {
         try {
-            const local = localStorage.getItem('mc_custom_resources');
+            const local = localStorage.getItem(STORAGE_KEY);
             if (local) {
                 const parsed = JSON.parse(local);
                 if (Array.isArray(parsed) && parsed.length > 0) {
@@ -154,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function saveResources(data) {
-        localStorage.setItem('mc_custom_resources', JSON.stringify(data));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
         window.dispatchEvent(new Event('storage'));
         refreshPreviewFrame();
     }
@@ -206,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnCatFixlag.addEventListener('click', () => setCategory('fixlag'));
     btnCatLitematica.addEventListener('click', () => setCategory('litematica'));
 
-    // Gợi ý thẻ tags: Chỉ hiển thị các thẻ do chính bạn đã tạo trong dữ liệu
+    // Gợi ý thẻ tags: Chỉ hiển thị các thẻ do bạn tự tạo
     function renderSuggestedTags() {
         if (!suggestedTagsContainer) return;
         suggestedTagsContainer.innerHTML = '';
@@ -222,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const label = document.createElement('span');
             label.style.fontSize = '0.8rem';
             label.style.color = 'var(--text-muted)';
-            label.textContent = 'Chưa có thẻ nào được tạo. Hãy nhập tên thẻ bạn muốn vào ô bên trên!';
+            label.textContent = 'Chưa có thẻ nào. Nhập tên thẻ vào ô bên trên để tự tạo thẻ mới!';
             suggestedTagsContainer.appendChild(label);
             return;
         }

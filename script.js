@@ -3,11 +3,13 @@
    Minecraft Resource Hub
    ========================================================= */
 
+const STORAGE_KEY = 'mc_resource_hub_v3';
+
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Tải và kết hợp dữ liệu (data.js + LocalStorage nếu có cập nhật từ admin)
+    // 1. Tải và kết hợp dữ liệu (data.js + LocalStorage v3)
     function getAllResources() {
         try {
-            const localData = localStorage.getItem('mc_custom_resources');
+            const localData = localStorage.getItem(STORAGE_KEY);
             if (localData) {
                 const parsed = JSON.parse(localData);
                 if (Array.isArray(parsed) && parsed.length > 0) {
@@ -17,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {
             console.error('Lỗi đọc dữ liệu từ LocalStorage:', e);
         }
-        return typeof resourceData !== 'undefined' ? resourceData : [];
+        // Khởi tạo từ data.js gốc (toàn bộ tags đều là rỗng [])
+        return typeof resourceData !== 'undefined' ? JSON.parse(JSON.stringify(resourceData)) : [];
     }
 
     let allItems = getAllResources();
@@ -86,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (countLitematica) countLitematica.textContent = litematicaCount;
     }
 
-    // 3. Tự động sinh danh sách Thẻ Tag động (Chỉ hiển thị khi có thẻ do người dùng tự tạo)
+    // 3. Tự động sinh danh sách Thẻ Tag (CHỈ HIỆN KHI BẠN ĐÃ TỰ TẠO THẺ TRONG ADMIN)
     function renderTagChips() {
         if (!tagChipsContainer) return;
         tagChipsContainer.innerHTML = '';
@@ -98,13 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Nếu chưa có thẻ nào được tạo, ẩn vùng tag chips
+        // Nếu bạn chưa tạo thẻ nào, ẩn hoàn toàn thanh thẻ tag này đi
         if (tags.size === 0) {
             tagChipsContainer.style.display = 'none';
             return;
-        } else {
-            tagChipsContainer.style.display = 'flex';
         }
+
+        tagChipsContainer.style.display = 'flex';
 
         // Nút "Tất cả thẻ"
         const allBtn = document.createElement('button');
@@ -118,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         tagChipsContainer.appendChild(allBtn);
 
-        // Render từng nút tag
+        // Render từng thẻ do bạn tự tạo
         Array.from(tags).sort().forEach(tag => {
             const btn = document.createElement('button');
             btn.className = `chip-btn ${currentTag === tag ? 'active' : ''}`;
@@ -289,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }
 
-            // Hiển thị tags trên card nếu có
+            // Hiển thị tags trên card nếu bạn đã tự thêm tags
             let tagsHTML = '';
             if (item.tags && item.tags.length > 0) {
                 tagsHTML = `
@@ -466,7 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lắng nghe sự thay đổi dữ liệu từ tab Admin
     window.addEventListener('storage', (e) => {
-        if (e.key === 'mc_custom_resources') {
+        if (e.key === STORAGE_KEY) {
             allItems = getAllResources();
             updateStats();
             populateVersions();
