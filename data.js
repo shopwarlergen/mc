@@ -174,7 +174,7 @@ const resourceData = [
         ],
         "farmInfo": {
             "profit": "1.000.000 Đá / Giờ",
-            "cost": "Rất thấp (TNT Duper tự động)",
+            "cost": "0đ (Miễn phí hoàn toàn)",
             "dimensions": "24 x 24 x 18 Blocks",
             "notes": "Thiết kế tối ưu riêng cho cơ chế server DonutSMP, tốc độ cực nhanh."
         }
@@ -192,7 +192,7 @@ const resourceData = [
         ],
         "farmInfo": {
             "profit": "120.000 Đá / Giờ",
-            "cost": "0đ (Miễn phí hoàn toàn)",
+            "cost": "không biết chưa tính",
             "dimensions": "10 x 8 x 12 Blocks",
             "notes": "Thích hợp xây dựng giai đoạn đầu game, không tốn tài nguyên duy trì."
         }
