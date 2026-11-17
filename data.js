@@ -6,6 +6,70 @@
 
 const resourceData = [
     {
+        "id": "fixlag-1791037723155",
+        "category": "fixlag",
+        "title": "auto đào base",
+        "description": "tự động đào base",
+        "size": "kbt",
+        "image": "https://hanaminikata.com/image/1180471442123534488/e9a20b8199054153.webp",
+        "link": "https://layma.net/xMq92wqUk",
+        "tags": [
+            "mod"
+        ],
+        "version": "1.21.11"
+    },
+    {
+        "id": "fixlag-1791037537306",
+        "category": "fixlag",
+        "title": "easyredstone",
+        "description": "giúp dễ dàng đặt đc block theo nhiều hướng",
+        "size": "kbt",
+        "image": "https://hanaminikata.com/image/1180471442123534488/a034349d74b9f8db.webp",
+        "link": "https://layma.net/2Nt1xpkES",
+        "tags": [
+            "mod"
+        ],
+        "version": "1.21.11"
+    },
+    {
+        "id": "fixlag-1791037217208",
+        "category": "fixlag",
+        "title": "metor",
+        "description": "metor client hack",
+        "size": "",
+        "image": "https://hanaminikata.com/image/1180471442123534488/35a9f8f718785af6.webp",
+        "link": "https://layma.net/lMp7iwY7d",
+        "tags": [
+            "mod"
+        ]
+    },
+    {
+        "id": "fixlag-1791037107415",
+        "category": "fixlag",
+        "title": "baritone",
+        "description": "mod baritone",
+        "size": "17.22 KB",
+        "image": "https://hanaminikata.com/image/1180471442123534488/a5b2be20b6df4f29.webp",
+        "link": "https://layma.net/bRqVgfAzE",
+        "tags": [
+            "mod"
+        ],
+        "version": "1.21.11"
+    },
+    {
+        "id": "fixlag-1791036898804",
+        "category": "fixlag",
+        "title": "alice addon",
+        "description": "addon hỗ trợ pvp và build kèm nhiều cái khác",
+        "size": "17.22 KB",
+        "image": "https://hanaminikata.com/image/1180471442123534488/8223654b876ccbf3.webp",
+        "link": "https://layma.net/0i5Jq1ggm",
+        "tags": [
+            "mod"
+        ],
+        "version": "1.21.11"
+    },
+    {
         "id": "fixlag-01",
         "category": "fixlag",
         "title": "Sodium",
